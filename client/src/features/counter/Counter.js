@@ -12,6 +12,7 @@ import styles from './Counter.module.css';
 
 export function Counter() {
   const count = useSelector(selectCount);
+  const error = useSelector((state) => state.counter.error);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
 
@@ -20,6 +21,8 @@ export function Counter() {
   return (
     <div>
       <div className={styles.row}>
+        {error && <span className={styles.error}>{error}</span>
+        }
         <button
           className={styles.button}
           aria-label="Decrement value"

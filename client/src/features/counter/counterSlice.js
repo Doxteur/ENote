@@ -4,6 +4,7 @@ import { fetchCount } from './counterAPI';
 const initialState = {
   value: 0,
   status: 'idle',
+  error: null,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -50,7 +51,13 @@ export const counterSlice = createSlice({
       .addCase(incrementAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.value += action.payload;
+      })
+      .addCase(incrementAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.error = action.error.message;
+        // state.value += action.payload;
       });
+      
   },
 });
 
