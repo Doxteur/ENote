@@ -7,9 +7,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
-        <p>
+        <p className='bg-green-400'>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <span>
