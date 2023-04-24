@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login', function () {
+    return response()->json([
+        'message' => 'Login failed',
+        'error' => 'Invalid credentials',
+    ], 401);
+})->name('login');
+
+Route::get('test', function () {
+	event(new App\Events\StatusLiked('Someone'));
+	return "Event has been sent!";
+});

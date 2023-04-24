@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// import User model
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', function (Request $request) {
+    // return json
+    if(!$request->has('name') || !$request->has('password')) {
+        return response()->json([
+            'message' => 'Login failed',
+            'error' => 'Invalid credentials',
+        ], 401);
+    }else{
+        $user = User::where('name', $request->name)->first();
+        if(!$user) {
+            return response()->json([
+                'message' => 'Login failed',
+                'error' => 'Invalid credentials',
+            ], 401);
+        }else{
+            if(!Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'message' => 'Login failed',
+                    'error' => 'Invalid credentials',
+                ], 401);
+            }else{
+                $token = $user->createToken('auth_token')->plainTextToken;
+                return response()->json([
+                    'message' => 'Login successful',
+                    'token' => $token,
+                ], 200);
+            }
+        }
+    }
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
