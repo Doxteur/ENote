@@ -1,5 +1,6 @@
 import { Router as router } from "express";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 export default router()
   .get("/user", (req, res) => {
@@ -19,10 +20,13 @@ export default router()
     Promise.resolve()
       .then(async () => {
         const prisma = new PrismaClient();
+        const password = await bcrypt.hash("test", 8);
+
         const users = await prisma.user.create({
           data: {
             name: "Alice",
             email: "test@gmail.com",
+            password: password,
             name: "Alice",
           },
         });
