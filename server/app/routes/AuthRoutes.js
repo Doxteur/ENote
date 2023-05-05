@@ -4,27 +4,30 @@ import bcrypt from "bcryptjs";
 
 import { signToken } from "../utils/authUtils.js";
 
+const prisma = new PrismaClient();
+
 export default router()
   .post("/login", async (req, res) => {
+    console.log("req.body", req.body);
     try {
       if (!req.body?.email || !req.body?.password) {
         return res.status(400).json({ message: "Missing email or password" });
       }
-      const prisma = new PrismaClient();
       const user = await prisma.user.findUnique({
         where: {
           email: req.body.email,
         },
       });
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(200).json({ error: "L'utilisateur n'éxiste pas" });
       }
       if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        return res.status(200).json({ error: "Mauvais mot de passe" });
       }
       const token = signToken(user);
 
       res.json({
+        user,
         message: "Utilisateur connecté avec succès",
         token,
       });
@@ -38,7 +41,6 @@ export default router()
       if (!req.body?.email || !req.body?.password) {
         return res.status(400).json({ message: "Missing email or password" });
       }
-      const prisma = new PrismaClient();
       const user = await prisma.user.findUnique({
         where: {
           email: req.body.email,
@@ -56,6 +58,7 @@ export default router()
       const token = signToken(newUser);
 
       res.json({
+        user,
         message: "Utilisateur créé avec succès",
         token,
       });
