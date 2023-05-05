@@ -6,7 +6,7 @@ import index from "./app/routes/index.js";
 const port = process.env.PORT || 4001;
 
 const app = express();
-app.use(index);
+app.use('/api',index);
 
 const server = createServer(app);
 
