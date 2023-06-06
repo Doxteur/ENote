@@ -1,21 +1,26 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/Auth/AuthReducer";
 
 function LoginForm() {
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state) => state.auth);
+	const auth = useSelector((state) => state.auth);
+	const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    dispatch(
-      login({ email: e.target[0].value, password: e.target[1].value })
-    ).then((res) => {
-      if(res.payload.token){
-        window.location.href = "/";
-      }
-    });
+    e.preventDefault();
+    dispatch(login({ email: e.target[0].value, password: e.target[1].value }))
   };
+
+  useEffect(() => {
+    console.log(auth);
+    if (auth.isAuthenticated) {
+      localStorage.setItem("token", JSON.stringify(auth.token));
+      navigate("/dashboard");
+    }
+  }, [auth]);
+
 
   return (
     <div className="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
@@ -33,7 +38,6 @@ function LoginForm() {
             <form
               className="mt-4"
               onSubmit={(e) => {
-                e.preventDefault();
                 handleLogin(e);
               }}
             >
@@ -80,7 +84,7 @@ function LoginForm() {
                 <button className="mb-1.5 block w-full text-center text-white bg-primary px-2 py-1.5 rounded-md">
                   Se connecter
                 </button>
-                {error && <div className="text-red-500 font-bold">{error}</div>}
+                {auth.error && <div className="text-red-500 font-bold">{auth.error}</div>}
               </div>
             </form>
 

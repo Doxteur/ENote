@@ -5,6 +5,7 @@ import LoginForm from "./components/Auth/LoginForm";
 import NoteViewer from "./components/Note/NoteViewer";
 import RegisterForm from "./components/Auth/RegisterForm";
 import { useSelector } from "react-redux";
+import AuthGuard from "./components/AuthGuard";
 
 function App() {
   // check if user is logged in
@@ -24,27 +25,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          {/* <Route path="/" element={<Test />} /> */}
-          <Route path="/login" element={<LoginForm />} />
+      <Routes>
+				<Route element={<LoginForm />} path="/" />
+				<Route element={<LoginForm />} path="/login" />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <NoteViewer />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <ProtectedRoute>
-                <RegisterForm />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+				<Route element={<AuthGuard />}>
+					<Route element={<NoteViewer />} path="/dashboard" />
+				</Route>
+
+			</Routes>
       </BrowserRouter>
     </div>
   );
