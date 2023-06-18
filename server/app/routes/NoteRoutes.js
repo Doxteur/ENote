@@ -3,38 +3,46 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 export default router()
-  .get("/user", (req, res) => {
-    Promise.resolve()
-      .then(async () => {
-        const prisma = new PrismaClient();
-        const users = await prisma.user.findMany();
-        !users && res.status(404).send("Not found");
-        res.json(users);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(err);
-      });
+  .get("/", async (req, res) => {
+    const prisma = new PrismaClient();
+    const notes = await prisma.note.findMany();
+    res.json(notes);
   })
-  .get("/useradd", (req, res) => {
-    Promise.resolve()
-      .then(async () => {
-        const prisma = new PrismaClient();
-        const password = await bcrypt.hash("test", 8);
+  .post("/", async (req, res) => {
+    const prisma = new PrismaClient();
+    const { title, content } = req.body;
+    const note = await prisma.note.create({
+      data: {
+        title,
+        content,
+      },
+    });
+    res.json(note);
+  })
+  .put("/:id", async (req, res) => {
+    const prisma = new PrismaClient();
+    const { title, content } = req.body;
+    const note = await prisma.note.update({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      data: {
+        title,
+        content,
+      },
+    });
+    res.json(note);
+  })
+  .delete("/:id", async (req, res) => {
+    const prisma = new PrismaClient();
+    const note = await prisma.note.delete({
+      where: {
+        id: parseInt(req.params.id),
+      },
+    });
+    res.json(note);
+  })
 
-        const users = await prisma.user.create({
-          data: {
-            name: "Alice",
-            email: "test@gmail.com",
-            password: password,
-            name: "Alice",
-          },
-        });
-        console.log(users);
-        res.json(users);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).send(err);
-      });
-  });
+  
+
+  

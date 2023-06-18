@@ -6,6 +6,7 @@ import AuthRoutes from './AuthRoutes.js';
 
 // Middleware
 import auth from '../middlewares/auth.js';
+import SocketRoutes from './SocketRoutes.js';
 
 export default router()
     .get('/', (req, res) => {
@@ -14,4 +15,5 @@ export default router()
         });
     })
     .use('/notes',auth, NoteRoutes)
-    .use('/auth', AuthRoutes);
+    .use('/auth', AuthRoutes)
+    .use('/rooms', SocketRoutes)
