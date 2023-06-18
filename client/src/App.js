@@ -6,6 +6,7 @@ import NoteViewer from "./components/Note/NoteViewer";
 import RegisterForm from "./components/Auth/RegisterForm";
 import { useSelector } from "react-redux";
 import AuthGuard from "./components/AuthGuard";
+import NoteListes from "./components/Note/NoteListes";
 
 function App() {
   // check if user is logged in
@@ -31,6 +32,7 @@ function App() {
 
 				<Route element={<AuthGuard />}>
 					<Route element={<NoteViewer />} path="/dashboard" />
+          <Route element={<NoteListes />} path="/notes" />
 				</Route>
 
 			</Routes>
