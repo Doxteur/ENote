@@ -14,7 +14,7 @@ exports.createMainWindow = async () => {
 			devTools: config.isDev,
 			contextIsolation: false,
 		},
-		frame: false,
+		frame: true,
 		icon: config.icon,
 		title: config.appName,
 	});
