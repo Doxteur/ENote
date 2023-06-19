@@ -17,7 +17,7 @@ function LoginForm() {
     console.log(auth);
     if (auth.isAuthenticated) {
       localStorage.setItem("token", JSON.stringify(auth.token));
-      navigate("/dashboard");
+      navigate("/notes");
     }
   }, [auth]);
 

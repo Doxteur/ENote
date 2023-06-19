@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { REACT_APP_API_URL } from "../../utils/config";
 
-
-
 export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
   try {
 		const response = await fetch(`${REACT_APP_API_URL}/auth/login`, {
@@ -55,7 +53,7 @@ const AuthSlice = createSlice({
 			state.isAuthenticated = false;
 			state.user = null;
 			state.token = null;
-			state.error = action.payload.error || action.payload.message;
+			state.error = action.payload.error || action.payload.message || "error";
 		},
 	},
 
