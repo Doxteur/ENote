@@ -5,7 +5,7 @@ import NoteRoutes from './NoteRoutes.js';
 import AuthRoutes from './AuthRoutes.js';
 
 // Middleware
-import auth from '../middlewares/auth.js';
+import auth from '../middlewares/Auth.js';
 import SocketRoutes from './SocketRoutes.js';
 
 export default router()
