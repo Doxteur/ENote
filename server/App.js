@@ -18,10 +18,7 @@ const io = new Server(server, {
   },
 });
 
-app.use((req, res, next) => {
-    req.io = io;
-    next();
-});
+
 app.use("/api", index);
 
 
