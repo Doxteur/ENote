@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { verify } from 'jsonwebtoken';
 const config = process.env;
 
@@ -9,13 +10,25 @@ export default (req, res, next) => {
         message: 'No token provided',
         });
     }
-    return verify(token, config.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    return verify(token, config.ACCESS_TOKEN_SECRET, async (err, decoded) => {
         if (err) {
         return res.status(500).json({
             auth: false,
             message: 'Failed to authenticate token.',
         });
         }
+        // update database
+        const prisma = new PrismaClient();
+        await prisma.user.update({
+            where: {
+                id: decoded.id,
+            },
+            data: {
+                lastLogin: new Date(),
+            },
+            token: token,
+        });
+        
         req.userId = decoded.id;
         return next();
     });

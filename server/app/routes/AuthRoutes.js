@@ -26,6 +26,13 @@ export default router()
       }
       const token = signToken(user);
 
+      // update database
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        token: token,
+      });
 
       res.json({
         user,

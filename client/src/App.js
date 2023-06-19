@@ -12,30 +12,18 @@ function App() {
   // check if user is logged in
   // if not, redirect to login page
 
-  const auth = useSelector((state) => state.auth);
-
-  const ProtectedRoute = ({ children }) => {
-    console.log("auth", auth);
-    if (!auth?.token) {
-      return <Navigate to="/login" replace />;
-    }
-
-    return children;
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
-      <Routes>
-				<Route element={<LoginForm />} path="/" />
-				<Route element={<LoginForm />} path="/login" />
+        <Routes>
+          <Route element={<LoginForm />} path="/" />
+          <Route element={<LoginForm />} path="/login" />
 
-				<Route element={<AuthGuard />}>
-					<Route element={<NoteViewer />} path="/dashboard" />
-          <Route element={<NoteListes />} path="/notes" />
-				</Route>
-
-			</Routes>
+          <Route element={<AuthGuard />}>
+            <Route element={<NoteListes />} path="/notes" />
+            <Route element={<NoteViewer />} path="/note/:id" />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </div>
   );

@@ -32,4 +32,5 @@ model User {
   name    String?
   posts   Post[]
   profile Profile?
+  token   String?
 }
