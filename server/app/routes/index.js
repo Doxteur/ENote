@@ -5,7 +5,7 @@ import NoteRoutes from './NoteRoutes.js';
 import AuthRoutes from './AuthRoutes.js';
 
 // Middleware
-import auth from '../middlewares/auth.js';
+import Auth from '../middlewares/Auth.js';
 import SocketRoutes from './SocketRoutes.js';
 
 export default router()
@@ -14,6 +14,6 @@ export default router()
             message: 'Welcome to the API'
         });
     })
-    .use('/notes',auth, NoteRoutes)
+    .use('/notes',Auth, NoteRoutes)
     .use('/auth', AuthRoutes)
     .use('/rooms',SocketRoutes)

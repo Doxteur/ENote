@@ -3,6 +3,7 @@ import io from "../../App.js";
 
 export default router().get("/:id", async (req, res) => {
   io.once("connection", (socket) => {
+    console.log("connected");
     const room = req.params.id;
     socket.join(room);
     socket.emit("connected", `You are connected to room ${room}`);

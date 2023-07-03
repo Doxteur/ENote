@@ -1,114 +1,104 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getNotes } from "../../features/Notes/NotesReducer";
 
 function NoteListes() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+	const notes = useSelector((state) => state.notes);
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getNotes(auth.token));
+    console.log("auth",auth)
+  }, [auth.token, dispatch]);
+  
+  useEffect(() => {
+    console.log(notes);
+  }, [notes]);
+
+  const handleEdit = (e) => {
+    navigate(`/note/${e}`);
+  };
+
   return (
-    <div className="bg-gray-200 w-screen h-screen ">
-      <div className="">
-        <div className=" m-auto grid grid-cols-3 p-4 gap-2 place-items-center">
-          <article className="rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:shadow-sm w-1/2">
-            <div className="rounded-[10px] bg-white p-4 !pt-20 sm:p-6">
-              <time
-                datetime="2022-10-10"
-                className="block text-xs text-gray-500"
-              >
-                10th Oct 2022
-              </time>
-
-              <a href="#">
-                <h3 className="mt-0.5 text-lg font-medium text-gray-900">
-                  How to center an element using JavaScript and jQuery
-                </h3>
-              </a>
-
-              <div className="mt-4 flex flex-wrap gap-1">
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  Snippet
-                </span>
-
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  JavaScript
-                </span>
-              </div>
+    <div className="bg-gray-200 h-screen">
+      <div className="grid grid-cols-4 p-20">
+        <div className="p-6">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <img className="w-full" src="/mountain.jpg" alt="Mountain" />
+            <div className="px-6 py-4 ">
+              <div className="font-bold text-xl mb-2">Mountain</div>
+              <p className="text-gray-700 text-base">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Voluptatibus quia, Nonea! Maiores et perferendis eaque,
+                exercitationem praesentium nihil.
+              </p>
             </div>
-          </article>
-          <article className="rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:shadow-sm w-1/2">
-            <div className="rounded-[10px] bg-white p-4 !pt-20 sm:p-6">
-              <time
-                datetime="2022-10-10"
-                className="block text-xs text-gray-500"
-              >
-                10th Oct 2022
-              </time>
-
-              <a href="#">
-                <h3 className="mt-0.5 text-lg font-medium text-gray-900">
-                  How to center an element using JavaScript and jQuery
-                </h3>
-              </a>
-
-              <div className="mt-4 flex flex-wrap gap-1">
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  Snippet
-                </span>
-
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  JavaScript
-                </span>
-              </div>
+            <div className="px-6 pt-4 pb-2">
+              <button className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 float-right hover:bg-green-500 hover:text-white "
+              onClick={
+                e => handleEdit("42")
+              }>
+                Editer
+              </button>
             </div>
-          </article>{" "}
-          <article className="rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:shadow-sm w-1/2">
-            <div className="rounded-[10px] bg-white p-4 !pt-20 sm:p-6">
-              <time
-                datetime="2022-10-10"
-                className="block text-xs text-gray-500"
-              >
-                10th Oct 2022
-              </time>
-
-              <a href="#">
-                <h3 className="mt-0.5 text-lg font-medium text-gray-900">
-                  How to center an element using JavaScript and jQuery
-                </h3>
-              </a>
-
-              <div className="mt-4 flex flex-wrap gap-1">
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  Snippet
-                </span>
-
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  JavaScript
-                </span>
-              </div>
+          </div>
+        </div>
+        <div className="p-6">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <img className="w-full" src="/mountain.jpg" alt="Mountain" />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">Mountain</div>
+              <p className="text-gray-700 text-base">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Voluptatibus quia, Nonea! Maiores et perferendis eaque,
+                exercitationem praesentium nihil.
+              </p>
             </div>
-          </article>{" "}
-          <article className="rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:shadow-sm w-1/2">
-            <div className="rounded-[10px] bg-white p-4 !pt-20 sm:p-6">
-              <time
-                datetime="2022-10-10"
-                className="block text-xs text-gray-500"
-              >
-                10th Oct 2022
-              </time>
-
-              <a href="#">
-                <h3 className="mt-0.5 text-lg font-medium text-gray-900">
-                  How to center an element using JavaScript and jQuery
-                </h3>
-              </a>
-
-              <div className="mt-4 flex flex-wrap gap-1">
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  Snippet
-                </span>
-
-                <span className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600">
-                  JavaScript
-                </span>
-              </div>
+            <div className="px-6 pt-4 pb-2">
+              <button className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 float-right hover:bg-green-500 hover:text-white ">
+                Editer
+              </button>
             </div>
-          </article>
+          </div>
+        </div>
+        <div className="p-6">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <img className="w-full" src="/mountain.jpg" alt="Mountain" />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">Mountain</div>
+              <p className="text-gray-700 text-base">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Voluptatibus quia, Nonea! Maiores et perferendis eaque,
+                exercitationem praesentium nihil.
+              </p>
+            </div>
+            <div className="px-6 pt-4 pb-2">
+              <button className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 float-right hover:bg-green-500 hover:text-white ">
+                Editer
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="p-6">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <img className="w-full" src="/mountain.jpg" alt="Mountain" />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">Mountain</div>
+              <p className="text-gray-700 text-base">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Voluptatibus quia, Nonea! Maiores et perferendis eaque,
+                exercitationem praesentium nihil.
+              </p>
+            </div>
+            <div className="px-6 pt-4 pb-2">
+              <button className="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 float-right hover:bg-green-500 hover:text-white ">
+                Editer
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

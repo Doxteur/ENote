@@ -39,9 +39,8 @@ const NotesSlice = createSlice({
       state.isLoading = true;
     },
     [getNotes.fulfilled]: (state, action) => {
-      console.log("notes", action.payload);
       state.isLoading = false;
-      state.notes = action.payload.notes;
+      state.notes = action.payload;
       state.error = null;
     },
     [getNotes.rejected]: (state, action) => {

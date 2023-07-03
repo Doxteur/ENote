@@ -8,9 +8,9 @@ export default router()
     // get token from header
     const token = req.headers.authorization.split(" ")[1];
     // get note for this user
-    const notes = await prisma.note.find({
+    const notes = await prisma.post.findMany({
       where: {
-        user: {
+        author: {
           token,
         },
       },
@@ -20,7 +20,7 @@ export default router()
   .post("/", async (req, res) => {
     const prisma = new PrismaClient();
     const { title, content } = req.body;
-    const note = await prisma.note.create({
+    const note = await prisma.post.create({
       data: {
         title,
         content,
@@ -31,7 +31,7 @@ export default router()
   .put("/:id", async (req, res) => {
     const prisma = new PrismaClient();
     const { title, content } = req.body;
-    const note = await prisma.note.update({
+    const note = await prisma.post.update({
       where: {
         id: parseInt(req.params.id),
       },
@@ -44,7 +44,7 @@ export default router()
   })
   .delete("/:id", async (req, res) => {
     const prisma = new PrismaClient();
-    const note = await prisma.note.delete({
+    const note = await prisma.post.delete({
       where: {
         id: parseInt(req.params.id),
       },

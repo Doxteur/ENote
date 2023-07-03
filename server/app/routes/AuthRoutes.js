@@ -21,17 +21,18 @@ export default router()
         return res.status(401).json({ error: "L'utilisateur n'éxiste pas" });
       }
       if (!bcrypt.compareSync(req.body.password, user.password)) {
-        console.log("req.body",req.body);
+        console.log("req.body", req.body);
         return res.status(401).json({ error: "Mauvais mot de passe" });
       }
       const token = signToken(user);
 
-      // update database
       await prisma.user.update({
         where: {
           id: user.id,
         },
-        token: token,
+        data: {
+          token,
+        },
       });
 
       res.json({
