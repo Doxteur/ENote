@@ -60,7 +60,7 @@
 	"main": "public/electron.js",
 	"scripts": {
 		"dev": "concurrently \"npm run react:dev\" \"npm run electron:wait\"",
-		"electron:wait": "wait-on tcp:3000 && npm run electron:dev",
+		"electron:wait": "npm run electron:dev",
 		"prebuild": "rimraf build && rimraf dist",
 		"react:build": "react-scripts build",
 		"react:dev": "cross-env BROWSER=none react-scripts start",
