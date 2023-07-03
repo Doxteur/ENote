@@ -8,13 +8,7 @@ export default router()
     // get token from header
     const token = req.headers.authorization.split(" ")[1];
     // get note for this user
-    const notes = await prisma.post.findMany({
-      where: {
-        author: {
-          token,
-        },
-      },
-    });
+    const notes = await prisma.post.findMany();
     res.json(notes);
   })
   .post("/", async (req, res) => {
