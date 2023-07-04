@@ -26,15 +26,6 @@ export default router()
       }
       const token = signToken(user);
 
-      // await prisma.user.update({
-      //   where: {
-      //     id: user.id,
-      //   },
-      //   data: {
-      //     token,
-      //   },
-      // });
-
       res.json({
         user,
         message: "Utilisateur connecté avec succès",

@@ -7,10 +7,9 @@ import RegisterForm from "./components/Auth/RegisterForm";
 import { useSelector } from "react-redux";
 import AuthGuard from "./components/AuthGuard";
 import NoteListes from "./components/Note/NoteListes";
+import EditorWiz from "./components/Note/Editor/EditorWiz";
 
 function App() {
-  // check if user is logged in
-  // if not, redirect to login page
 
   return (
     <div className="App">
@@ -21,7 +20,7 @@ function App() {
 
           <Route element={<AuthGuard />}>
             <Route element={<NoteListes />} path="/notes" />
-            <Route element={<NoteViewer />} path="/note/:id" />
+            <Route element={<EditorWiz />} path="/note/:id" />
           </Route>
         </Routes>
       </BrowserRouter>
