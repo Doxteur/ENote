@@ -11,13 +11,8 @@ function NoteListes() {
 
   useEffect(() => {
     dispatch(getNotes(auth.token));
-    console.log("auth",auth)
   }, [auth.token, dispatch]);
   
-  useEffect(() => {
-    console.log(notes);
-  }, [notes]);
-
   const handleEdit = (e) => {
     navigate(`/note/${e}`);
   };

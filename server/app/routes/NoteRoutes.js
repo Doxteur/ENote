@@ -4,15 +4,11 @@ import bcrypt from "bcryptjs";
 
 export default router()
   .get("/", async (req, res) => {
+    const userId = req.userId;
     const prisma = new PrismaClient();
-    // get token from header
-    const token = req.headers.authorization.split(" ")[1];
-    // get note for this user
     const notes = await prisma.post.findMany({
       where: {
-        author: {
-          token,
-        },
+        userId: userId,
       },
     });
     res.json(notes);

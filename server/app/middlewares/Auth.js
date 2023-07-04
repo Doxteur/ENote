@@ -17,16 +17,6 @@ export default (req, res, next) => {
         message: "Failed to authenticate token.",
       });
     }
-    // update database
-    const prisma = new PrismaClient();
-    await prisma.user.update({
-      where: {
-        id: decoded.id,
-      },
-      data: {
-        token: token,
-      },
-    });
 
     req.userId = decoded.id;
     return next();

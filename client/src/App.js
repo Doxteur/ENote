@@ -9,8 +9,6 @@ import AuthGuard from "./components/AuthGuard";
 import NoteListes from "./components/Note/NoteListes";
 
 function App() {
-  // check if user is logged in
-  // if not, redirect to login page
 
   return (
     <div className="App">

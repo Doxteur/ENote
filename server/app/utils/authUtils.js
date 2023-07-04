@@ -6,7 +6,7 @@ const config = process.env;
 
 
 export function signToken(user) {
-  const token = jwt.sign({ id: user.id }, config.ACCESS_TOKEN_SECRET, {
+  const token = jwt.sign({ userId: user.id }, config.ACCESS_TOKEN_SECRET, {
     expiresIn: 86400, // 24 hours
   });
   return token;
