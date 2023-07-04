@@ -89,7 +89,6 @@ function NoteViewer() {
 		dispatch(logout());
 	};
 
-  
 	return (
 		<div className="min-w-screen min-h-screen bg-gray-200">
 

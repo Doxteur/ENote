@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getNotes } from "../../features/Notes/NotesReducer";
+import SideBar from "./SideBar/SideBar";
 
 function NoteListes() {
 	const navigate = useNavigate();
@@ -19,6 +20,7 @@ function NoteListes() {
 
 	return (
 		<div className="bg-gray-200 h-screen">
+			<SideBar/>
 			{notes.notes &&
 				notes.notes.map((note) => (
 					<div
