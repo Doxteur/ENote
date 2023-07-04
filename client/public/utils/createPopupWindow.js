@@ -5,8 +5,8 @@ const remote = require("@electron/remote/main");
 
 exports.createPopupWindow = async () => {
 	const window = new BrowserWindow({
-		width: 260,
-		height: 360,
+		width: 460,
+		height: 560,
 		x: 0,
 		y: 0,
 		resizable: false,

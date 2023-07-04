@@ -2,7 +2,7 @@
   "devDependencies": {
     "@prisma/client": "^4.13.0",
     "nodemon": "^2.0.22",
-    "prisma": "^4.13.0"
+    "prisma": "^4.16.2"
   },
   "name": "enote",
   "description": "## Contexte",
