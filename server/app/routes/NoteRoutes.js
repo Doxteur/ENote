@@ -1,48 +1,23 @@
 import { Router as router } from "express";
 import { PrismaClient } from "@prisma/client";
+import { createNote, deleteNote, getNotes, updateNote } from "../controllers/NoteControllers.js";
+
+const prisma = new PrismaClient();
 
 export default router()
   .get("/", async (req, res) => {
-    const userId = req.userId;
-    const prisma = new PrismaClient();
-    const notes = await prisma.post.findMany({
-      where: {
-        authorId: userId,
-      },
-    });
+    const notes = await getNotes(req, res);
     res.json(notes);
   })
   .post("/", async (req, res) => {
-    const prisma = new PrismaClient();
-    const { title, content } = req.body;
-    const note = await prisma.post.create({
-      data: {
-        title,
-        content,
-      },
-    });
+    const note = await createNote(req, res);
     res.json(note);
   })
   .put("/:id", async (req, res) => {
-    const prisma = new PrismaClient();
-    const { title, content } = req.body;
-    const note = await prisma.post.update({
-      where: {
-        id: parseInt(req.params.id),
-      },
-      data: {
-        title,
-        content,
-      },
-    });
+    const note = await updateNote(req, res);
     res.json(note);
   })
   .delete("/:id", async (req, res) => {
-    const prisma = new PrismaClient();
-    const note = await prisma.post.delete({
-      where: {
-        id: parseInt(req.params.id),
-      },
-    });
+    const note = await deleteNote(req, res);
     res.json(note);
   });
