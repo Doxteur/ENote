@@ -1,6 +1,5 @@
 import { Router as router } from "express";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
 
 export default router()
   .get("/", async (req, res) => {
@@ -8,7 +7,7 @@ export default router()
     const prisma = new PrismaClient();
     const notes = await prisma.post.findMany({
       where: {
-        userId: userId,
+        authorId: userId,
       },
     });
     res.json(notes);

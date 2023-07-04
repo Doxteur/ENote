@@ -18,7 +18,7 @@ export default (req, res, next) => {
       });
     }
 
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     return next();
   });
 };
