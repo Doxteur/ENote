@@ -92,15 +92,6 @@ function NoteViewer() {
   
 	return (
 		<div className="min-w-screen min-h-screen bg-gray-200">
-			{/* <h1>Text</h1>
-      <input
-        type="text"
-        className="border border-black"
-        onChange={(e) => {
-          handleChange(e.target.value);
-        }}
-        value={text}
-      /> */}
 
 			<div className="flex items-center justify-center px-5 py-5 pt-24">
 				<div className="w-full max-w-6xl mx-auto rounded-xl bg-white shadow-lg p-5 text-black">
@@ -169,7 +160,6 @@ function NoteViewer() {
 				onClick={() => {
 					socket.close();
 					socket.removeAllListeners();
-					localStorage.removeItem("token");
 				}}
 				to="/notes"
 			>

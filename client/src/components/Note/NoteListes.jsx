@@ -30,6 +30,8 @@ function NoteListes() {
 							{note.title}
 						</h2>
 						<p className="mt-2 text-gray-600">{note.content}</p>
+						<div className="flex justify-end mt-4">
+						</div>
 					</div>
 				))}
 		</div>
