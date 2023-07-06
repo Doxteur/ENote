@@ -37,16 +37,17 @@ function SideBar() {
                 </div>
               
             </section>
-            
-            <section className="p-4 flex items-center justify-center">
-                
+           
+            <section className="p-4  flex items-center justify-center">
+           
                 <div className='flex space-x-4'>
-                    <AiFillFolderAdd className="rounded text-2xl hover:bg-gray-400"/>
-                    <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400"/>
-                    <BsFilterLeft className="rounded text-2xl mr-2 hover:bg-gray-400"/>
-                    <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400"/>
+                    <AiFillFolderAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer"/>
+                    <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
+                    <BsFilterLeft className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
+                    <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
                 </div>
             </section>
+            <hr className="w-11/12 m-auto bg-gray-200" />
             <section className="sidebar-content min-h-[20rem]">
                 <nav className="menu rounded-md">
                     <section className="menu-section px-4">
