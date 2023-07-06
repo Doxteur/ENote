@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/Auth/AuthReducer";
 
@@ -74,7 +74,7 @@ function LoginForm() {
                 >
                   Se souvenir de moi
                 </label>
-                <a href="#" className="text-xs font-semibold text-primary">
+                <a href="/" className="text-xs font-semibold text-primary">
                   Mot de passe oublié ?
                 </a>
               </div>
