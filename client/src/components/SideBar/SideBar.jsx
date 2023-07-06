@@ -37,8 +37,11 @@ function SideBar() {
                     <span>E-Notes</span>
                     <span className="text-xs font-normal text-content2">Evil is good</span>
                 </div>
+              
             </section>
+            
             <section className="p-4 flex items-center justify-center">
+                
                 <div className='flex space-x-4'>
                     <AiFillFolderAdd className="rounded text-2xl hover:bg-gray-400"/>
                     <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400"/>
