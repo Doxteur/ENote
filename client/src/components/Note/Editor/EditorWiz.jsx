@@ -62,17 +62,16 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<div className="w-full p-2">
+			<div className="w-full m-2">
 				<div className="tabs">
-					<div className="menu-item flex-col items-start">
+					<div className="border-l border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white rounded-tr-xl relative">
+						<div className="flex align-middle items-center ">
 						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" checked />
-						<label htmlFor="tab-4" className="tab tab-bordered px-6">{note.title}</label>
-					
-
-
-
-
+						<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
+						<Link  to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 "/></Link>	
+						</div>	
 					</div>
+					
 				</div>
 				<Editor
 					editorState={editorState}
