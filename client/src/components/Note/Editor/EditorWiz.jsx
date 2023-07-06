@@ -26,7 +26,6 @@ export default function EditorWiz({ note }) {
 	const typingTimeoutRef = useRef(null);
 
 	useEffect(() => {
-		console.log("je suis la !!!!!!!");
 		const blocksFromHTML = convertFromHTML(note?.content);
 		const state = ContentState.createFromBlockArray(
 			blocksFromHTML.contentBlocks,
@@ -60,11 +59,11 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<div className="w-full m-2">
+			<div className="w-full">
 				<div className="tabs">
-					<div className="border-l border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white rounded-tr-xl relative">
+					<div className="border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white relative">
 						<div className="flex align-middle items-center ">
-						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" checked />
+						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
 						<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
 						<Link  to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 "/></Link>	
 						</div>	
@@ -85,14 +84,6 @@ export default function EditorWiz({ note }) {
 					// set defualt vlaue
 					value={note.content}
 				/>
-				<div className="w-1/2 m-auto mt-20">
-					<Link
-						className="btn btn-success btn-sm float-left mx-40"
-						to="/notes"
-					>
-						Vos documents
-					</Link>
-				</div>
 			</div>
 		</div>
 	);

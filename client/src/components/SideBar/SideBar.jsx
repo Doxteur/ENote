@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { logout } from '../../features/Auth/AuthReducer';
 import { Link } from 'react-router-dom';
-import { AiFillFolderAdd, AiOutlineStar} from "react-icons/ai";
+import { AiFillFileAdd, AiOutlineStar} from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
-import { BsFilterLeft } from "react-icons/bs";
+import { BsFilterLeft, BsFillDoorOpenFill } from "react-icons/bs";
+
 
 function SideBar() {
     const auth = useSelector((state) => state.auth);
@@ -41,7 +42,7 @@ function SideBar() {
             <section className="p-4  flex items-center justify-center">
            
                 <div className='flex space-x-4'>
-                    <AiFillFolderAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer"/>
+                    <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer"/>
                     <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
                     <BsFilterLeft className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
                     <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
@@ -54,23 +55,21 @@ function SideBar() {
                     <div>Notes</div>
                         {notes.notes &&
                             notes.notes.map((note) => (
-                                <div className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
-                                    <div key={note.id} >
-                                        {note.title}
-                                    </div>
+                                <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
+                                       {note.title}
                                 </div>
                             ))}
                     </section>
                 </nav>
             </section>
             <section className="sidebar-footer bg-gray-2 pt-2">
-                <div className="divider my-0"></div>
-                <div className="flex justify-center">
+            
+                <div className="flex justify-center items-center p-3 mb-10">
                     <Link
-                        className="btn btn-primary"
+                        className='text-2xl  hover:text-gray-600'
                         onClick={(e) => disconnect()}
                         to={'/'}
-                    >Logout</Link>
+                    ><BsFillDoorOpenFill/></Link>
                 </div>
             </section>
         </aside>
