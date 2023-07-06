@@ -21,27 +21,19 @@ function NoteListes() {
 
 	return (
 		<div className="sticky flex h-screen flex-row gap-4 overflow-y-auto rounded-lg sm:overflow-x-hidden">
-			<SideBar />
-			<div className="bg-gray-200 h-full w-full">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-					{notes.notes &&
-						notes.notes.map((note) => (
-							<div className="card" key={note.id}>
-								<div className="card-body">
-									<h2 className="card-header">{note.title}</h2>
-									<p className="text-content2">
-										{note.content.length > 50
-											? ReactHtmlParser(note.content.substring(0, 50) + " ...")
-											: ReactHtmlParser(note.content)}
-											
-											 {/* {ReactHtmlParser(note.content)} */}
-									</p>
-									<div className="card-footer">
-										<button className="btn-secondary btn" onClick={(e) => handleEdit(note.id)}>Learn More</button>
-									</div>
-								</div>
-							</div>
-						))}
+			<div className="bg-gray-200 h-screen w-full">
+
+				<div className="flex flex-row">
+					<SideBar />
+					<div className="flex flex-col w-full justify-center items-center">
+						<h1 className="text-4xl font-bold mb-8">Aucun fichier trouvé</h1>
+						<div className="flex flex-col gap-4">
+						<a className="link link-secondary link-underline-hover" href="/">Créer un nouveau fichier</a>
+						<a className="link link-secondary link-underline-hover" href="/">Aller au fichier</a>
+						<a className="link link-secondary link-underline-hover" href="/">Voir les fichiers récents</a>
+						<a className="link link-secondary link-underline-hover" href="/">fermer</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
