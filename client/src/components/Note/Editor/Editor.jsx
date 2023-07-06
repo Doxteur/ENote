@@ -3,22 +3,22 @@ import { useParams } from "react-router-dom";
 import EditorWiz from "./EditorWiz";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useLocation } from "react-router-dom";
 
 function Editor() {
 	const { id } = useParams();
 	const notes = useSelector((state) => state.notes);
 	const [note, setNote] = useState(null);
-	console.log(notes);
+	const location = useLocation();
 
 	useEffect(() => {
 		if (!notes.notes) return;
 		setNote(notes.notes.find((note) => note.id === parseInt(id)));
-	}, [notes, id]);
-
-	return <div>
-		<ToastContainer
+	}, [notes, id,location]);
+	return (
+		<div>
+			<ToastContainer
 				position="bottom-right"
 				autoClose={2000}
 				hideProgressBar={false}
@@ -31,7 +31,8 @@ function Editor() {
 				theme="light"
 			/>
 			{note && <EditorWiz note={note} />}
-			</div>;
+		</div>
+	);
 }
 
 export default Editor;

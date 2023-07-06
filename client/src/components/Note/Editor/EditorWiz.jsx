@@ -18,8 +18,6 @@ import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function EditorWiz({ note }) {
 	const dispatch = useDispatch();
-	const notes = useSelector((state) => state.notes);
-	const location = useLocation();
 
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty(),
@@ -35,7 +33,7 @@ export default function EditorWiz({ note }) {
 			blocksFromHTML.entityMap,
 		);
 		setEditorState(EditorState.createWithContent(state));
-	}, [location]);
+	}, [note]);
 
 
 	const onEditorStateChange = (editorState) => {

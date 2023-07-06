@@ -8,6 +8,9 @@ export const getNotes = async (req, res) => {
     where: {
       authorId: userId,
     },
+    orderBy: {
+      id: "asc",
+    },
   });
   return notes;
 };
