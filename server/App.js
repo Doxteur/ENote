@@ -18,9 +18,24 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  socket.on("join", (room) => {
+    socket.join(room);
+    socket.emit("connected", `You are connected to room ${room}`);
+    socket.on("editing", (data) => {
+      socket.broadcast.to(room).emit("editing", data);
+    });
+
+    socket.on("disconnect", () => {
+      socket.broadcast
+        .to(room)
+        .emit("disconnected", "Someone has disconnected");
+      socket.leave(room);
+    });
+  });
+});
 
 app.use("/api", index);
-
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
 

@@ -24,16 +24,16 @@ export const createNote = async (req, res) => {
 };
 
 export const updateNote = async (req, res) => {
-  const { title, content } = req.body;
+  const { content } = req.body;
   const note = await prisma.post.update({
     where: {
       id: parseInt(req.params.id),
     },
     data: {
-      title,
       content,
     },
   });
+
   return note;
 };
 

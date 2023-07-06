@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getNotes } from "../../features/Notes/NotesReducer";
 import SideBar from "../SideBar/SideBar";
+import ReactHtmlParser from 'react-html-parser'; 
 
 function NoteListes() {
 	const navigate = useNavigate();
@@ -20,25 +21,28 @@ function NoteListes() {
 
 	return (
 		<div className="sticky flex h-screen flex-row gap-4 overflow-y-auto rounded-lg sm:overflow-x-hidden">
-			<div className="bg-gray-200 h-screen w-full">
-				<div className="flex flex-row">
-					<SideBar />
+			<SideBar />
+			<div className="bg-gray-200 h-full w-full">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
 					{notes.notes &&
 						notes.notes.map((note) => (
-							<div className="card">
+							<div className="card" key={note.id}>
 								<div className="card-body">
 									<h2 className="card-header">{note.title}</h2>
-									<p className="text-content2">{note.content}</p>
+									<p className="text-content2">
+										{note.content.length > 50
+											? ReactHtmlParser(note.content.substring(0, 50) + " ...")
+											: ReactHtmlParser(note.content)}
+											
+											 {/* {ReactHtmlParser(note.content)} */}
+									</p>
 									<div className="card-footer">
 										<button className="btn-secondary btn" onClick={(e) => handleEdit(note.id)}>Learn More</button>
 									</div>
 								</div>
 							</div>
-
 						))}
 				</div>
-
-
 			</div>
 		</div>
 	);

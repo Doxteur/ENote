@@ -63,7 +63,6 @@ function NoteViewer() {
 	}, []);
 
 	useEffect(() => {
-		console.log(isConnectedIo);
 		if (isConnectedIo) {
 			// listen
 			socket.on("hello", (data) => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate, HashRouter } from "react-router-dom";
 
 import LoginForm from "./components/Auth/LoginForm";
 import NoteViewer from "./components/Note/NoteViewer";
@@ -8,22 +8,23 @@ import { useSelector } from "react-redux";
 import AuthGuard from "./components/AuthGuard";
 import NoteListes from "./components/Note/NoteListes";
 import EditorWiz from "./components/Note/Editor/EditorWiz";
+import Editor from "./components/Note/Editor/Editor";
 
 function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route element={<LoginForm />} path="/" />
           <Route element={<LoginForm />} path="/login" />
 
           <Route element={<AuthGuard />}>
             <Route element={<NoteListes />} path="/notes" />
-            <Route element={<EditorWiz />} path="/note/:id" />
+            <Route element={<Editor />} path="/note/:id" />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

@@ -8,9 +8,7 @@ import { Link } from 'react-router-dom';
 function SideBar() {
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    useEffect(() => {
-        console.log(auth.user)
-    }, [auth.user]);
+
 
     const disconnect = () => {
         if (window.confirm("Are you sure you want to log out?")) {
