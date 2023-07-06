@@ -22,7 +22,6 @@ function NoteListes() {
 	return (
 		<div className="sticky flex h-screen flex-row gap-4 overflow-y-auto rounded-lg sm:overflow-x-hidden">
 			<div className="bg-gray-200 h-screen w-full">
-
 				<div className="flex flex-row">
 					<SideBar />
 					<div className="flex flex-col w-full justify-center items-center">
