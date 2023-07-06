@@ -8,7 +8,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../features/Auth/AuthReducer";
 import SideBar from "../../SideBar/SideBar";
@@ -19,6 +19,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 export default function EditorWiz({ note }) {
 	const dispatch = useDispatch();
 	const notes = useSelector((state) => state.notes);
+	const location = useLocation();
 
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty(),
@@ -27,13 +28,15 @@ export default function EditorWiz({ note }) {
 	const typingTimeoutRef = useRef(null);
 
 	useEffect(() => {
+		console.log("je suis la !!!!!!!");
 		const blocksFromHTML = convertFromHTML(note?.content);
 		const state = ContentState.createFromBlockArray(
 			blocksFromHTML.contentBlocks,
 			blocksFromHTML.entityMap,
 		);
 		setEditorState(EditorState.createWithContent(state));
-	}, []);
+	}, [location]);
+
 
 	const onEditorStateChange = (editorState) => {
 		clearTimeout(typingTimeoutRef.current);
@@ -51,9 +54,8 @@ export default function EditorWiz({ note }) {
 					},
 					id: note.id,
 				}),
-			);		
+			);
 		}, 2000);
-
 		setEditorState(editorState);
 	};
 
@@ -61,15 +63,16 @@ export default function EditorWiz({ note }) {
 		<div className="flex">
 			<SideBar />
 			<div className="w-full p-2">
-				<div class="tabs">
-					{notes.notes &&
-						notes.notes.map((note) => (
+				<div className="tabs">
+					<div className="menu-item flex-col items-start">
+						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" checked />
+						<label htmlFor="tab-4" className="tab tab-bordered px-6">{note.title}</label>
+					
 
-							<div className="menu-item flex-col items-start">
-								<input type="radio" id="tab-4" name="tab-2" class="tab-toggle" checked />
-								<label for="tab-4" class="tab tab-bordered px-6">{note.title}</label>								
-							</div>
-						))}
+
+
+
+					</div>
 				</div>
 				<Editor
 					editorState={editorState}
@@ -82,6 +85,8 @@ export default function EditorWiz({ note }) {
 					toolbar={{
 						options: ["inline", "blockType", "fontSize", "fontFamily"],
 					}}
+					// set defualt vlaue
+					value={note.content}
 				/>
 				<div className="w-1/2 m-auto mt-20">
 					<Link
