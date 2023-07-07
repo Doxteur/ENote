@@ -94,23 +94,16 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<div className="w-full p-2">
+			<div className="w-full">
 				<div className="tabs">
-					<div className="menu-item flex-col items-start">
-						<input
-							type="radio"
-							id="tab-4"
-							name="tab-2"
-							className="tab-toggle"
-							checked
-						/>
-						<label
-							htmlFor="tab-4"
-							className="tab tab-bordered px-6"
-						>
-							{note.title}
-						</label>
+					<div className="border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white relative">
+						<div className="flex align-middle items-center ">
+						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
+						<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
+						<Link  to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 "/></Link>	
+						</div>	
 					</div>
+					
 				</div>
 				<Editor
 					editorState={editorState}
@@ -131,14 +124,6 @@ export default function EditorWiz({ note }) {
 					// set default value
 					value={note.content}
 				/>
-				<div className="w-1/2 m-auto mt-20">
-					<Link
-						className="btn btn-success btn-sm float-left mx-40"
-						to="/notes"
-					>
-						Vos documents
-					</Link>
-				</div>
 			</div>
 		</div>
 	);
