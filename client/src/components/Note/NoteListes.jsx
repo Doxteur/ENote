@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getNotes } from "../../features/Notes/NotesReducer";
 import SideBar from "../SideBar/SideBar";
-import ReactHtmlParser from 'react-html-parser'; 
+import ReactHtmlParser from 'react-html-parser';
+// import socketIO from 'socket.io-client';
+import { socket } from "../../utils/socket"
+import { REACT_APP_API_URL } from "../../utils/config";
 
 function NoteListes() {
 	const navigate = useNavigate();
@@ -14,6 +17,8 @@ function NoteListes() {
 	useEffect(() => {
 		dispatch(getNotes(auth.token));
 	}, [auth.token, dispatch]);
+
+
 
 	const handleEdit = (e) => {
 		navigate(`/note/${e}`);
@@ -27,10 +32,10 @@ function NoteListes() {
 					<div className="flex flex-col w-full justify-center items-center">
 						<h1 className="text-4xl font-bold mb-8">Aucun fichier choisie</h1>
 						<div className="flex flex-col gap-4">
-						<a className="link link-secondary link-underline-hover" href="/">Créer un nouveau fichier</a>
-						<a className="link link-secondary link-underline-hover" href="/">Aller au fichier</a>
-						<a className="link link-secondary link-underline-hover" href="/">Voir les fichiers récents</a>
-						<a className="link link-secondary link-underline-hover" href="/">fermer</a>
+							<a className="link link-secondary link-underline-hover" href="/">Créer un nouveau fichier</a>
+							<a className="link link-secondary link-underline-hover" href="/">Aller au fichier</a>
+							<a className="link link-secondary link-underline-hover" href="/">Voir les fichiers récents</a>
+							<a className="link link-secondary link-underline-hover" href="/">fermer</a>
 						</div>
 					</div>
 				</div>

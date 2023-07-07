@@ -27,6 +27,7 @@ export const createNote = async (req, res) => {
 };
 
 export const updateNote = async (req, res) => {
+  console.log("JD - Update note ",req.body);
   const { content } = req.body;
   const note = await prisma.post.update({
     where: {

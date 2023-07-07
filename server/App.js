@@ -19,10 +19,13 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
+  console.log("New client connected");
   socket.on("join", (room) => {
+    console.log(`A user joined room ${room}`);
     socket.join(room);
     socket.emit("connected", `You are connected to room ${room}`);
     socket.on("editing", (data) => {
+      console.log("Editing",data);
       socket.broadcast.to(room).emit("editing", data);
     });
 
@@ -33,6 +36,10 @@ io.on("connection", (socket) => {
       socket.leave(room);
     });
   });
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  }
+  );
 });
 
 app.use("/api", index);

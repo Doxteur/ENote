@@ -13,12 +13,12 @@ async function seed() {
       posts: {
         create: [
           {
-            title: "Post 1 by User 1",
+            title: "Post 1",
             content: "Content of Post 1",
             published: true,
           },
           {
-            title: "Post 2 by User 1",
+            title: "Post 2",
             content: "Content of Post 2",
             published: false,
           },

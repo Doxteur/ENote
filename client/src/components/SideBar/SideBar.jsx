@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { logout } from '../../features/Auth/AuthReducer';
 import { Link } from 'react-router-dom';
-import { AiFillFileAdd, AiOutlineStar} from "react-icons/ai";
+import { AiFillFileAdd, AiOutlineStar } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { BsFilterLeft, BsFillDoorOpenFill } from "react-icons/bs";
 
@@ -36,40 +36,51 @@ function SideBar() {
                     <span>E-Notes</span>
                     <span className="text-xs font-normal text-content2">Evil is good</span>
                 </div>
-              
+
             </section>
-           
+
             <section className="p-4  flex items-center justify-center">
-           
+
                 <div className='flex space-x-4'>
-                    <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer"/>
-                    <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
-                    <BsFilterLeft className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
-                    <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer"/>
+                    <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer" />
+                    <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
+                    <BsFilterLeft className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
+                    <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
                 </div>
             </section>
             <hr className="w-11/12 m-auto bg-gray-200" />
             <section className="sidebar-content min-h-[20rem]">
                 <nav className="menu rounded-md">
                     <section className="menu-section px-4">
-                    <div>Notes</div>
+                        <div className='font-bold'>Mes Notes</div>
                         {notes.notes &&
                             notes.notes.map((note) => (
                                 <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
-                                       {note.title}
+                                  - {note.title}
+                                </div>
+                            ))}
+                    </section>
+                </nav>
+                <nav className="menu rounded-md pt-4">
+                <section className="menu-section px-4">
+                        <div className='font-bold'>Notes Partagées</div>
+                        {notes.notes &&
+                            notes.notes.map((note) => (
+                                <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
+                                   - {note.title}
                                 </div>
                             ))}
                     </section>
                 </nav>
             </section>
             <section className="sidebar-footer bg-gray-2 pt-2">
-            
+
                 <div className="flex justify-center items-center p-3 mb-10">
                     <Link
                         className='text-2xl  hover:text-gray-600'
                         onClick={(e) => disconnect()}
                         to={'/'}
-                    ><BsFillDoorOpenFill/></Link>
+                    ><BsFillDoorOpenFill /></Link>
                 </div>
             </section>
         </aside>

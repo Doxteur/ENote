@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useLocation } from "react-router-dom";
+import { socket } from "../../../utils/socket";
+import SaveIcon from "./SaveIcon";
 
 function Editor() {
 	const { id } = useParams();
@@ -17,6 +19,16 @@ function Editor() {
 		if (!notes.notes) return;
 		setNote(notes.notes.find((note) => note.id === parseInt(id)));
 	}, [location]);
+
+	useEffect(() => {
+		socket.emit("join", id);
+	}, [id]);
+
+	useEffect(() => {
+		socket.on("connected", (response) => {
+			console.log("connected", response);
+		});
+	}, []);
 
 	return (
 		<div>
@@ -33,6 +45,7 @@ function Editor() {
 				theme="light"
 			/>
 			{note && <EditorWiz note={note} />}
+			<SaveIcon />
 		</div>
 	);
 }

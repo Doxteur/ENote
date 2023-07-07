@@ -16,8 +16,10 @@ import SideBar from "../../SideBar/SideBar";
 import { updateNote } from "../../../features/Notes/NotesReducer";
 import { AiFillCloseCircle } from "react-icons/ai";
 import parse from 'html-react-parser';
+import { socket } from "../../../utils/socket";
 
-
+import { BsFillGearFill } from "react-icons/bs";
+import ModalInvitesManages from "../../Modal/ModalInvitesManages";
 export default function EditorWiz({ note }) {
 	const dispatch = useDispatch();
 	const [editorState, setEditorState] = useState(() =>
@@ -27,6 +29,7 @@ export default function EditorWiz({ note }) {
 	const typingTimeoutRef = useRef(null);
 	const [previousText, setPreviousText] = useState("");
 	const [previousSelection, setPreviousSelection] = useState(null);
+	const [modalManageInvites, setModalManageInvites] = useState(false);
 
 	useEffect(() => {
 		const blocksFromHTML = convertFromHTML(note?.content);
@@ -39,6 +42,23 @@ export default function EditorWiz({ note }) {
 		setPreviousText(note?.content);
 	}, [note]);
 
+	useEffect(() => {
+		socket.on("editing", (data) => {
+			console.log("data", data);
+			const blocksFromHTML = convertFromHTML(data);
+			console.log("blocksFromHTML", blocksFromHTML);
+			const state = ContentState.createFromBlockArray(
+				blocksFromHTML.contentBlocks,
+				blocksFromHTML.entityMap,
+			);
+			setEditorState(EditorState.createWithContent(state));
+			setPreviousText(data);
+		});
+
+	}, []);
+
+
+
 	const onEditorStateChange = (editorState) => {
 		const { blocks } = convertToRaw(editorState.getCurrentContent());
 		console.log("blocks", blocks);
@@ -48,26 +68,9 @@ export default function EditorWiz({ note }) {
 		// remove replace " to '
 		text = text.replace(/"/g, "'");
 
-		// format style="font-size: 14px;" to style={{fontSize: "14px"}}
-		// dont forget to 
-		// text = text.replace(/style='([^']*)'/g, (match, p1) => {
-		// 	const style = p1
-		// 		.split(";")
-		// 		.filter((s) => s.trim())
-		// 		.map((s) => {
-		// 			const [key, value] = s.split(":");
-		// 			return `"${key.trim()}": "${value.trim()}"`;
-		// 		})
-		// 		.join(",");
-		// 	return `style={{${style}}}`;
-		// });
-		console.log("text", text);
-		// text = parse(text);
-		// parse html text to reaact
-		
-		console.log("text", text);
 
 		if (text !== previousText) {
+			socket.emit("editing", text);
 			clearTimeout(typingTimeoutRef.current);
 			typingTimeoutRef.current = setTimeout(() => {
 				dispatch(
@@ -94,16 +97,33 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<div className="w-full">
-				<div className="tabs">
-					<div className="border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white relative">
-						<div className="flex align-middle items-center ">
-						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
-						<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
-						<Link  to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 "/></Link>	
-						</div>	
+			<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} />
+			<div className="w-full ">
+				<div className="w-full flex justify-between">
+					<div className="tabs">
+						<div className="border-r border-t border-gray-300 p-1 mt-2 pb-2 bg-white relative">
+							<div className="flex align-middle items-center ">
+								<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
+								<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
+								<Link to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 " /></Link>
+							</div>
+						</div>
+						<div className="absolute right-5 p-1 pb-0.5 rounded-md">
+							<div class="dropdown">
+								<label tabindex="0">
+									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
+								</label>
+								<div class="dropdown-menu">
+									<a class="dropdown-item text-sm"
+										onClick={() => setModalManageInvites(true)}
+									>Invitations</a>
+									{/* <a tabindex="-1" class="dropdown-item text-sm">Subscriptions</a> */}
+								</div>
+							</div>
+
+						</div>
 					</div>
-					
+
 				</div>
 				<Editor
 					editorState={editorState}
