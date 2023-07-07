@@ -5,28 +5,7 @@ import { useSelector } from 'react-redux';
 
 
 Modal.setAppElement('#root');
-function ModalInvitesManages({ modalManageInvites, setModalManageInvites, note }) {
-    const notes = useSelector((state) => state.notes);
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            zIndex: 1000,
-            transform: 'translate(-50%, -50%)',
-        },
-    };
-
-
-    function openModal() {
-        setModalManageInvites(true);
-    }
-
-    function closeModal() {
-        setModalManageInvites(false);
-    }
-
+function ModalInvitesManages({ note }) {
 
     return (
         <div>

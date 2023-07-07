@@ -103,8 +103,6 @@ export default function EditorWiz({ note }) {
 							<div className="flex align-middle items-center ">
 								<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
 								<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
-								<label class="btn btn-primary" for="modal-1">Open Modal</label>
-
 								<Link to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 " /></Link>
 							</div>
 						</div>
@@ -114,9 +112,11 @@ export default function EditorWiz({ note }) {
 									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
 								</label>
 								<div className="dropdown-menu">
-									<a className="dropdown-item text-sm"
+									{/* <a className="dropdown-item text-sm"
 										onClick={() => setModalManageInvites(true)}
-									>Invitations</a>
+									>Invitations</a> */}
+																	<label class="dropdown-item text-sm" for="modal-1">Gestion Invites</label>
+
 									{/* <a tabindex="-1" class="dropdown-item text-sm">Subscriptions</a> */}
 								</div>
 							</div>
