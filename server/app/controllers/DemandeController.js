@@ -14,7 +14,6 @@ export const getDemandes = async (req, res) => {
       },
     },
   });
-  console.log("JD - getDemandes ", demandes);
   return notes;
 };
 

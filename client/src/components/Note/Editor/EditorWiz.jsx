@@ -33,7 +33,6 @@ export default function EditorWiz({ note }) {
 
 	useEffect(() => {
 		const blocksFromHTML = convertFromHTML(note?.content);
-		console.log("blocksFromHTML", blocksFromHTML);
 		const state = ContentState.createFromBlockArray(
 			blocksFromHTML.contentBlocks,
 			blocksFromHTML.entityMap,
@@ -44,9 +43,7 @@ export default function EditorWiz({ note }) {
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
-			console.log("data", data);
 			const blocksFromHTML = convertFromHTML(data);
-			console.log("blocksFromHTML", blocksFromHTML);
 			const state = ContentState.createFromBlockArray(
 				blocksFromHTML.contentBlocks,
 				blocksFromHTML.entityMap,
@@ -97,7 +94,8 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} />
+			<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} note={note}/>
+
 			<div className="w-full ">
 				<div className="w-full flex justify-between">
 					<div className="tabs">
@@ -105,16 +103,18 @@ export default function EditorWiz({ note }) {
 							<div className="flex align-middle items-center ">
 								<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" readOnly checked />
 								<label htmlFor="tab-4" className="tab tab-bordered">{note.title}</label>
+								<label class="btn btn-primary" for="modal-1">Open Modal</label>
+
 								<Link to="/notes"><AiFillCloseCircle className="hover:text-gray-300 cursor-pointer absolute -top-1.5 -right-1.5 " /></Link>
 							</div>
 						</div>
 						<div className="absolute right-5 p-1 pb-0.5 rounded-md">
-							<div class="dropdown">
+							<div className="dropdown">
 								<label tabindex="0">
 									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
 								</label>
-								<div class="dropdown-menu">
-									<a class="dropdown-item text-sm"
+								<div className="dropdown-menu">
+									<a className="dropdown-item text-sm"
 										onClick={() => setModalManageInvites(true)}
 									>Invitations</a>
 									{/* <a tabindex="-1" class="dropdown-item text-sm">Subscriptions</a> */}
@@ -131,7 +131,7 @@ export default function EditorWiz({ note }) {
 					wrapperClassName="wrapperClassName"
 					editorClassName="editorClassName"
 					onEditorStateChange={onEditorStateChange}
-					editorStyle={{ lineHeight: "1.2" }}
+					editorStyle={{ lineHeight: "1.2",padding:"0 10px" }}
 					// default
 					toolbar={{
 						options: [

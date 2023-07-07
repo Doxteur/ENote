@@ -11,7 +11,20 @@ export const getNotes = async (req, res) => {
     orderBy: {
       id: "asc",
     },
+    include: {
+      demandes: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
   });
+
   return notes;
 };
 

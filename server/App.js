@@ -25,7 +25,6 @@ io.on("connection", (socket) => {
     socket.join(room);
     socket.emit("connected", `You are connected to room ${room}`);
     socket.on("editing", (data) => {
-      console.log("Editing",data);
       socket.broadcast.to(room).emit("editing", data);
     });
 

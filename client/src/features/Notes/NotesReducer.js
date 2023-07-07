@@ -69,6 +69,7 @@ const NotesSlice = createSlice({
 			state.isLoading = true;
 		},
 		[getNotes.fulfilled]: (state, action) => {
+			console.log("action.payload", action.payload);
 			state.isLoading = false;
 			state.notes = action.payload;
 			state.error = null;
