@@ -3,6 +3,7 @@ import {
 	EditorState,
 	ContentState,
 	convertFromHTML,
+	SelectionState,
 } from "draft-js";
 import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "react-draft-wysiwyg";
@@ -14,46 +15,79 @@ import { logout } from "../../../features/Auth/AuthReducer";
 import SideBar from "../../SideBar/SideBar";
 import { updateNote } from "../../../features/Notes/NotesReducer";
 import { AiFillCloseCircle } from "react-icons/ai";
+import parse from 'html-react-parser';
 
 
 export default function EditorWiz({ note }) {
 	const dispatch = useDispatch();
-
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty(),
 	);
 	const auth = useSelector((state) => state.auth);
 	const typingTimeoutRef = useRef(null);
+	const [previousText, setPreviousText] = useState("");
+	const [previousSelection, setPreviousSelection] = useState(null);
 
 	useEffect(() => {
-		console.log("je suis la !!!!!!!");
 		const blocksFromHTML = convertFromHTML(note?.content);
+		console.log("blocksFromHTML", blocksFromHTML);
 		const state = ContentState.createFromBlockArray(
 			blocksFromHTML.contentBlocks,
 			blocksFromHTML.entityMap,
 		);
 		setEditorState(EditorState.createWithContent(state));
+		setPreviousText(note?.content);
 	}, [note]);
 
-
 	const onEditorStateChange = (editorState) => {
-		clearTimeout(typingTimeoutRef.current);
-
 		const { blocks } = convertToRaw(editorState.getCurrentContent());
+		console.log("blocks", blocks);
 		let text = editorState.getCurrentContent().getPlainText("\u0001");
 		text = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
-		typingTimeoutRef.current = setTimeout(() => {
-			dispatch(
-				updateNote({
-					token: auth.token,
-					note: {
-						content: text,
-					},
-					id: note.id,
-				}),
-			);
-		}, 2000);
+		// remove replace " to '
+		text = text.replace(/"/g, "'");
+
+		// format style="font-size: 14px;" to style={{fontSize: "14px"}}
+		// dont forget to 
+		// text = text.replace(/style='([^']*)'/g, (match, p1) => {
+		// 	const style = p1
+		// 		.split(";")
+		// 		.filter((s) => s.trim())
+		// 		.map((s) => {
+		// 			const [key, value] = s.split(":");
+		// 			return `"${key.trim()}": "${value.trim()}"`;
+		// 		})
+		// 		.join(",");
+		// 	return `style={{${style}}}`;
+		// });
+		console.log("text", text);
+		// text = parse(text);
+		// parse html text to reaact
+		
+		console.log("text", text);
+
+		if (text !== previousText) {
+			clearTimeout(typingTimeoutRef.current);
+			typingTimeoutRef.current = setTimeout(() => {
+				dispatch(
+					updateNote({
+						token: auth.token,
+						note: {
+							content: text,
+						},
+						id: note.id,
+					}),
+				);
+				setPreviousText(text);
+			}, 2000);
+		}
+
+		// Preserve the selection state of the editor
+		const selectionState = editorState.getSelection();
+		setPreviousSelection(selectionState);
+
+		// Set the new editor state with the preserved selection
 		setEditorState(editorState);
 	};
 
@@ -63,13 +97,19 @@ export default function EditorWiz({ note }) {
 			<div className="w-full p-2">
 				<div className="tabs">
 					<div className="menu-item flex-col items-start">
-						<input type="radio" id="tab-4" name="tab-2" className="tab-toggle" checked />
-						<label htmlFor="tab-4" className="tab tab-bordered px-6">{note.title}</label>
-					
-
-
-
-
+						<input
+							type="radio"
+							id="tab-4"
+							name="tab-2"
+							className="tab-toggle"
+							checked
+						/>
+						<label
+							htmlFor="tab-4"
+							className="tab tab-bordered px-6"
+						>
+							{note.title}
+						</label>
 					</div>
 				</div>
 				<Editor
@@ -81,9 +121,14 @@ export default function EditorWiz({ note }) {
 					editorStyle={{ lineHeight: "1.2" }}
 					// default
 					toolbar={{
-						options: ["inline", "blockType", "fontSize", "fontFamily"],
+						options: [
+							"inline",
+							"blockType",
+							"fontSize",
+							"fontFamily",
+						],
 					}}
-					// set defualt vlaue
+					// set default value
 					value={note.content}
 				/>
 				<div className="w-1/2 m-auto mt-20">

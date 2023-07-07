@@ -13,9 +13,11 @@ function Editor() {
 	const location = useLocation();
 
 	useEffect(() => {
+		console.log("Je rentre dans notes!");
 		if (!notes.notes) return;
 		setNote(notes.notes.find((note) => note.id === parseInt(id)));
-	}, [notes, id,location]);
+	}, [location]);
+
 	return (
 		<div>
 			<ToastContainer
