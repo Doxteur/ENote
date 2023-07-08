@@ -20,7 +20,7 @@ import { socket } from "../../../utils/socket";
 
 import { BsFillGearFill } from "react-icons/bs";
 import ModalInvitesManages from "../../Modal/ModalInvitesManages";
-export default function EditorWiz({ note }) {
+export default function EditorWiz({ note, setNote }) {
 	const dispatch = useDispatch();
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty(),
@@ -58,7 +58,6 @@ export default function EditorWiz({ note }) {
 
 	const onEditorStateChange = (editorState) => {
 		const { blocks } = convertToRaw(editorState.getCurrentContent());
-		console.log("blocks", blocks);
 		let text = editorState.getCurrentContent().getPlainText("\u0001");
 		text = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
@@ -94,7 +93,9 @@ export default function EditorWiz({ note }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} note={note}/>
+			{note &&
+				<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} note={note} setNote={setNote} />
+			}
 
 			<div className="w-full ">
 				<div className="w-full flex justify-between">
@@ -108,16 +109,11 @@ export default function EditorWiz({ note }) {
 						</div>
 						<div className="absolute right-5 p-1 pb-0.5 rounded-md">
 							<div className="dropdown">
-								<label tabindex="0">
+								<label tabIndex="0">
 									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
 								</label>
 								<div className="dropdown-menu">
-									{/* <a className="dropdown-item text-sm"
-										onClick={() => setModalManageInvites(true)}
-									>Invitations</a> */}
-																	<label class="dropdown-item text-sm" for="modal-1">Gestion Invites</label>
-
-									{/* <a tabindex="-1" class="dropdown-item text-sm">Subscriptions</a> */}
+									<label className="dropdown-item text-sm" htmlFor="modal-1">Gestion Invites</label>
 								</div>
 							</div>
 
@@ -131,7 +127,7 @@ export default function EditorWiz({ note }) {
 					wrapperClassName="wrapperClassName"
 					editorClassName="editorClassName"
 					onEditorStateChange={onEditorStateChange}
-					editorStyle={{ lineHeight: "1.2",padding:"0 10px" }}
+					editorStyle={{ lineHeight: "1.2", padding: "0 10px" }}
 					// default
 					toolbar={{
 						options: [

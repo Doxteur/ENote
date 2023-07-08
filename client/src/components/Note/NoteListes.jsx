@@ -7,6 +7,7 @@ import ReactHtmlParser from 'react-html-parser';
 // import socketIO from 'socket.io-client';
 import { socket } from "../../utils/socket"
 import { REACT_APP_API_URL } from "../../utils/config";
+import { logout } from "../../features/Auth/AuthReducer";
 
 function NoteListes() {
 	const navigate = useNavigate();
@@ -15,9 +16,19 @@ function NoteListes() {
 	const auth = useSelector((state) => state.auth);
 
 	useEffect(() => {
-		dispatch(getNotes(auth.token));
-	}, [auth.token, dispatch]);
+		if (auth.isAuthenticated) {
+			dispatch(getNotes(auth.token));
+		}
+	}, [auth.token, dispatch, navigate]);
 
+	useEffect(() => {
+
+		if (notes.error) {
+			localStorage.removeItem("token");
+			dispatch(logout())
+			navigate("/");
+		}
+	}, [notes.error, navigate]);
 
 
 	const handleEdit = (e) => {

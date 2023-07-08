@@ -28,20 +28,32 @@ export const getDemandes = async (req, res) => {
 //   return note;
 // };
 
-// export const updateNote = async (req, res) => {
-//   console.log("JD - Update note ",req.body);
-//   const { content } = req.body;
-//   const note = await prisma.post.update({
-//     where: {
-//       id: parseInt(req.params.id),
-//     },
-//     data: {
-//       content,
-//     },
-//   });
+export const updateDemande = async (req, res) => {
+  const { status } = req.body;
+  console.log(status)
 
-//   return note;
-// };
+  // update table demande where id = req.params.id
+  const note = await prisma.demande.update({
+    where: {
+      id: parseInt(req.params.id),
+    },
+    data: {
+      status: status,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+  console.log(note)
+
+  return note;
+};
 
 // export const deleteNote = async (req, res) => {
 //   const note = await prisma.post.delete({

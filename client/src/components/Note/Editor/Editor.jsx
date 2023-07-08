@@ -14,8 +14,17 @@ function Editor() {
 	const [note, setNote] = useState(null);
 	const location = useLocation();
 
+
 	useEffect(() => {
-		console.log("Je rentre dans notes!");
+		if (!notes.notes) return;
+		setNote(
+			notes.notes.find((note) => note.id === parseInt(id)),
+		);
+	}, [notes.notes]);
+	
+
+
+	useEffect(() => {
 		if (!notes.notes) return;
 		setNote(notes.notes.find((note) => note.id === parseInt(id)));
 	}, [location]);
@@ -44,7 +53,7 @@ function Editor() {
 				pauseOnHover
 				theme="light"
 			/>
-			{note && <EditorWiz note={note} />}
+			{note && <EditorWiz note={note} setNote={setNote} />}
 			<SaveIcon />
 		</div>
 	);

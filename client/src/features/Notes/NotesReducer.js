@@ -52,6 +52,36 @@ export const updateNote = createAsyncThunk(
 	},
 );
 
+export const updateStatus = createAsyncThunk(
+	"notes/updateStatus",
+	async (data, thunkAPI) => {
+		
+		console.log("data", data);
+		try {
+			const response = await fetch(
+				`${REACT_APP_API_URL}/demandes/${data.demandeId}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${data.token}`,
+					},
+					body: JSON.stringify(data),
+				},
+			);
+			const responseData = await response.json();
+			if (!response.ok) {
+				return thunkAPI.rejectWithValue(responseData);
+			}
+			return responseData;
+		} catch (error) {
+			console.log("error", error);
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	},
+);
+
+
 const NotesSlice = createSlice({
 	name: "notes",
 	initialState: {
@@ -69,7 +99,6 @@ const NotesSlice = createSlice({
 			state.isLoading = true;
 		},
 		[getNotes.fulfilled]: (state, action) => {
-			console.log("action.payload", action.payload);
 			state.isLoading = false;
 			state.notes = action.payload;
 			state.error = null;
@@ -107,7 +136,54 @@ const NotesSlice = createSlice({
 			state.notes = null;
 			state.error = action.payload.error || action.payload.message;
 		},
+		[updateStatus.pending]: (state, action) => {
+			state.isLoading = true;
+		}
+		,
+		[updateStatus.fulfilled]: (state, action) => {
+			state.isLoading = false;
+			// find the note with action.payload.postId then find the demande with action.payload.id and update it
+			state.notes = state.notes.map((note) => {
+				if (note.id === action.payload.postId) {
+					note.demandes = note.demandes.map((demande) => {
+						if (demande.id === action.payload.id) {
+							return action.payload;
+						}
+						return demande;
+					});
+				}
+				return note;
+			});
+			console.log("state.notes", state.notes);
+			state.error = null;
+			toast.success("🦄 Votre status a été mis à jour !", {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+		},
+		[updateStatus.rejected]: (state, action) => {
+			state.isLoading = false;
+			state.notes = null;
+			state.error = action.payload.error || action.payload.message;
+			toast.error("❌ Une erreur est survenue !", {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+		},
 	},
+
 });
 
 export const { setNotes } = NotesSlice.actions;

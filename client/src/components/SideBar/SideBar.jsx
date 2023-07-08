@@ -8,7 +8,6 @@ import { AiFillFileAdd, AiOutlineStar } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { BsFilterLeft, BsFillDoorOpenFill } from "react-icons/bs";
 
-
 function SideBar() {
     const auth = useSelector((state) => state.auth);
     const notes = useSelector((state) => state.notes);
@@ -25,6 +24,9 @@ function SideBar() {
         navigate(`/note/${e}`);
     };
 
+
+
+
     return (
         <aside className="sidebar-sticky sidebar">
             <section className="sidebar-title items-center p-4">
@@ -34,7 +36,7 @@ function SideBar() {
                 </svg>
                 <div className="flex flex-col">
                     <span>E-Notes</span>
-                    <span className="text-xs font-normal text-content2">Evil is good</span>
+                    <span className="text-xs font-normal text-content2">Evil is Note</span>
                 </div>
 
             </section>
@@ -59,6 +61,7 @@ function SideBar() {
                                   - {note.title}
                                 </div>
                             ))}
+                            {notes?.notes && notes?.notes?.length === 0 && <div className='text-center'>Aucune note</div>}
                     </section>
                 </nav>
                 <nav className="menu rounded-md pt-4">

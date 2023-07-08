@@ -18,6 +18,7 @@ export const getNotes = async (req, res) => {
             select: {
               id: true,
               name: true,
+              email: true,
             },
           },
         },
@@ -40,7 +41,6 @@ export const createNote = async (req, res) => {
 };
 
 export const updateNote = async (req, res) => {
-  console.log("JD - Update note ",req.body);
   const { content } = req.body;
   const note = await prisma.post.update({
     where: {
@@ -53,6 +53,7 @@ export const updateNote = async (req, res) => {
 
   return note;
 };
+
 
 export const deleteNote = async (req, res) => {
   const note = await prisma.post.delete({

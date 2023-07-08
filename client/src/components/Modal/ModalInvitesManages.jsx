@@ -1,53 +1,77 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateNote, updateStatus } from '../../features/Notes/NotesReducer';
 
 
 Modal.setAppElement('#root');
-function ModalInvitesManages({ note }) {
+function ModalInvitesManages({ note, setNote }) {
+    const auth = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
+
+    const handleChangeStatus = (e, demandeId, noteId) => {
+  
+        dispatch(updateStatus({
+            token: auth.token,
+            demandeId: demandeId,
+            status: e.target.value,
+        }))
+        setNote({
+            ...note,
+            demandes: note.demandes.map((demande) => demande.id == demandeId ? { ...demande, status: e.target.value } : demande)
+        })
+
+    }
 
     return (
         <div>
-            {/* <div>
-                <Modal
-                    isOpen={modalManageInvites}
-                    onRequestClose={closeModal}
-                    style={customStyles}
-                    contentLabel="ModalInvites"
-                >
-                    <div className='w-screen z-50'>
-                        <button onClick={closeModal} className='btn btn-error m-2'>close</button>
-                        <div>
-                            {note.demandes.map((demande) => (
-                                <div key={demande.id} className='flex'>
-                                    <h1 className="mx-2"> {demande.user.name}</h1>
-                                    <h1 className='mx-2'>{demande.user.email}</h1>
-                                    <h1 className='mx-2'>{demande.status}</h1>
-                                    <select className='mx-2 select select-solid'>
-                                        <option value="accepted">Accepter</option>
-                                        <option value="pending">En Attente</option>
-                                        <option value="refused">Refuser</option>
-                                    </select>
-                                </div>
-                            ))
-                            }
-                        </div>
-                    </div>
-                </Modal>
-            </div> */}
             <input className="modal-state" id="modal-1" type="checkbox" />
             <div className="modal">
                 <label className="modal-overlay" htmlFor="modal-1"></label>
                 <div className="modal-content flex flex-col gap-5">
                     <label htmlFor="modal-1" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-                    <h2 className="text-xl">Modal title 1</h2>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum voluptate ratione dicta. Maxime cupiditate, est commodi consectetur earum iure, optio, obcaecati in nulla saepe maiores nobis iste quasi alias!</span>
-                    <div className="flex gap-3">
-                        <button className="btn btn-error btn-block">Delete</button>
+                    <h1 className="text-2xl font-bold">Gestionnaires des Invitations</h1>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {note.demandes.map((demande) => (
+                                <tr key={demande.id} >
+                                    <td className="mx-2"> {demande.user.name}</td>
+                                    <td className='mx-2'>{demande.user.email}</td>
+                                    <td>
+                                        <select defaultValue={demande.status} className={`mx-2 select btn-sm `}
+                                            // add stytle
+                                            onChange={
+                                                (e) => {
+                                                    handleChangeStatus(e, demande.id, note.id)
+                                                    // dispatch(updateDemande(note.id, demande.id, e.target.value))
+                                                }
+                                            }
+                                            // change border color
+                                            style={
+                                                demande.status == "accepted" ? { border: "1px solid green" } :
+                                                    demande.status == "pending" ? { border: "1px solid orange" } :
+                                                        demande.status == "refused" ? { border: "1px solid red" } : {}
+                                            }
+                                        >
+                                            <option value="accepted" >Accepter</option>
+                                            <option value="pending">En Attente</option>
+                                            <option value="refused" >Refuser</option>
 
-                        <button className="btn btn-block">Cancel</button>
-                    </div>
+                                        </select>
+                                    </td>
+                                </tr>
+                            ))
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
