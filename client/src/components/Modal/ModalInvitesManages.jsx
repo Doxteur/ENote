@@ -11,7 +11,7 @@ function ModalInvitesManages({ note, setNote }) {
     const dispatch = useDispatch()
 
     const handleChangeStatus = (e, demandeId, noteId) => {
-  
+
         dispatch(updateStatus({
             token: auth.token,
             demandeId: demandeId,
@@ -64,12 +64,12 @@ function ModalInvitesManages({ note, setNote }) {
                                             <option value="accepted" >Accepter</option>
                                             <option value="pending">En Attente</option>
                                             <option value="refused" >Refuser</option>
-
                                         </select>
                                     </td>
                                 </tr>
                             ))
                             }
+                            {note.demandes.length == 0 && <tr><td colSpan="3" className="text-center">Aucune demande</td></tr>}
                         </tbody>
                     </table>
                 </div>

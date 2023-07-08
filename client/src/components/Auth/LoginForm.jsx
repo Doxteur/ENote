@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../features/Auth/AuthReducer";
+import { login, logout } from "../../features/Auth/AuthReducer";
 
 function LoginForm() {
   const dispatch = useDispatch();
-	const auth = useSelector((state) => state.auth);
-	const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login({ email: e.target[0].value, password: e.target[1].value }))
   };
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+    dispatch(logout())
+  }, []);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
@@ -20,7 +25,7 @@ function LoginForm() {
     }
   }, [auth]);
 
-
+ 
   return (
     <div className="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10">
       <div className="flex shadow-md">

@@ -23,11 +23,11 @@ function NoteListes() {
 
 	useEffect(() => {
 
-		if (notes.error) {
-			localStorage.removeItem("token");
-			dispatch(logout())
-			navigate("/");
-		}
+		// if (notes.error) {
+		// 	localStorage.removeItem("token");
+		// 	dispatch(logout())
+		// 	navigate("/");
+		// }
 	}, [notes.error, navigate]);
 
 

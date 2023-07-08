@@ -27,10 +27,60 @@ export const getDemandes = async (req, res) => {
 //   });
 //   return note;
 // };
+export const createDemande = async (req, res) => {
+  // demande is related to a note and a user, the user send a code via the body, in the note table the field of code is shareLink
+  const { link } = req.body;
+  const userId = req.userId;
+
+  const existingDemande = await prisma.demande.findFirst({
+    // where shareLink and userId is the same
+    where: {
+      post: {
+        shareLink: link,
+      },
+      user: {
+        id: userId,
+      },
+    },
+  });
+
+  if (existingDemande) {
+    throw new Error("Vous avez déjà envoyé une demande pour cette note");
+  }
+
+  // get the note that has the shareLink
+  const note = await prisma.post.findUnique({
+    where: {
+      shareLink: link,
+    },
+  });
+  console.log("Note", note);
+  if (!note) {
+    throw new Error("La note n'existe pas");
+  }
+
+  // create a demande with the noteId and the userId
+  const demande = await prisma.demande.create({
+    data: {
+      post: {
+        connect: {
+          id: note.id,
+        },
+      },
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+    },
+  });
+  console.log("Demande", demande);
+  return demande;
+};
 
 export const updateDemande = async (req, res) => {
   const { status } = req.body;
-  console.log(status)
+  console.log(status);
 
   // update table demande where id = req.params.id
   const note = await prisma.demande.update({
@@ -50,7 +100,7 @@ export const updateDemande = async (req, res) => {
       },
     },
   });
-  console.log(note)
+  console.log(note);
 
   return note;
 };

@@ -81,6 +81,30 @@ export const updateStatus = createAsyncThunk(
 	},
 );
 
+export const createDemande = createAsyncThunk(
+	"notes/createDemande",
+	async (data, thunkAPI) => {
+		try {
+			const response = await fetch(`${REACT_APP_API_URL}/demandes/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${data.token}`,
+				},
+
+				body: JSON.stringify(data),
+			});
+			const responseData = await response.json();
+			if (!response.ok) {
+				return thunkAPI.rejectWithValue(responseData);
+			}
+			return responseData;
+		} catch (error) {
+			console.log("error", error);
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	},
+);
 
 const NotesSlice = createSlice({
 	name: "notes",
@@ -182,6 +206,28 @@ const NotesSlice = createSlice({
 				theme: "light",
 			});
 		},
+		[createDemande.pending]: (state, action) => {
+			state.isLoading = true;
+		},
+		[createDemande.fulfilled]: (state, action) => {
+			state.isLoading = false;
+			state.error = null;
+			toast.success("🦄 Votre demande a été créée !", {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+		},
+		[createDemande.rejected]: (state, action) => {
+			console.log("action", action);
+			state.isLoading = false;
+			state.error = action?.payload?.error || action?.payload?.message;
+		}
 	},
 
 });
