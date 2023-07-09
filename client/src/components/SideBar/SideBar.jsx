@@ -84,7 +84,6 @@ function SideBar() {
                             {/* only map on note where note.authorId == auth.user.id */}
                             {notes.notes &&
                                 notes?.notes?.map((note) => {
-                                    console.log("note", note)
                                     if (note?.authorId === auth.user.id) {
                                         return (
                                             <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>

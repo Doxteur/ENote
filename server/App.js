@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
     socket.join(room);
     socket.emit("connected", `You are connected to room ${room}`);
     socket.on("sendEditing", (data) => {
-      console.log(room);
+      // Only send to the same room
       if (socket.rooms.has(room)) {
         socket.broadcast.to(room).emit("editing", data);
       }

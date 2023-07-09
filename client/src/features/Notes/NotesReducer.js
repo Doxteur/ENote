@@ -56,7 +56,6 @@ export const updateStatus = createAsyncThunk(
 	"notes/updateStatus",
 	async (data, thunkAPI) => {
 		
-		console.log("data", data);
 		try {
 			const response = await fetch(
 				`${REACT_APP_API_URL}/demandes/${data.demandeId}`,
@@ -178,7 +177,6 @@ const NotesSlice = createSlice({
 				}
 				return note;
 			});
-			console.log("state.notes", state.notes);
 			state.error = null;
 			toast.success("🦄 Votre status a été mis à jour !", {
 				position: "bottom-right",

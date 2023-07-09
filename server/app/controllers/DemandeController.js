@@ -54,7 +54,6 @@ export const createDemande = async (req, res) => {
       shareLink: link,
     },
   });
-  console.log("Note", note);
   if (!note) {
     throw new Error("La note n'existe pas");
   }
@@ -74,13 +73,11 @@ export const createDemande = async (req, res) => {
       },
     },
   });
-  console.log("Demande", demande);
   return demande;
 };
 
 export const updateDemande = async (req, res) => {
   const { status } = req.body;
-  console.log(status);
 
   // update table demande where id = req.params.id
   const note = await prisma.demande.update({
@@ -100,7 +97,6 @@ export const updateDemande = async (req, res) => {
       },
     },
   });
-  console.log(note);
 
   return note;
 };

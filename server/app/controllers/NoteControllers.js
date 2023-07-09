@@ -6,10 +6,6 @@ export const getNotes = async (req, res) => {
   const userId = req.userId;
 
   const notes = await prisma.post.findMany({
-    // where: {
-    //   authorId: userId,
-    // },
-    // where authorId = userId or demandes.status = 'accepted'
     where: {
       OR: [
         {
@@ -41,7 +37,6 @@ export const getNotes = async (req, res) => {
       },
     },
   });
-  console.log(notes);
 
   return notes;
 };
