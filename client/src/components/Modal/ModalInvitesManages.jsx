@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNote, updateStatus } from '../../features/Notes/NotesReducer';
+import { logout } from '../../features/Auth/AuthReducer';
 
 
 Modal.setAppElement('#root');
@@ -24,6 +25,8 @@ function ModalInvitesManages({ note, setNote }) {
 
     }
 
+
+
     return (
         <div>
             <input className="modal-state" id="modal-1" type="checkbox" />
@@ -41,7 +44,7 @@ function ModalInvitesManages({ note, setNote }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {note.demandes.map((demande) => (
+                            {note?.demandes.map((demande) => (
                                 <tr key={demande.id} >
                                     <td className="mx-2"> {demande.user.name}</td>
                                     <td className='mx-2'>{demande.user.email}</td>

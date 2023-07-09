@@ -51,14 +51,15 @@ function SideBar() {
                     <div className='flex space-x-4'>
                         <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer" />
                         <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
-                        <label htmlFor="modal-2">
+                        <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
+
+                        <label htmlFor="modal-2" className='-mr-2'>
                             <AiOutlineLink className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer hover:text-green-400"
                                 onClick={
                                     (e) => showModalLink()
                                 }
                             />
                         </label>
-                        <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
                     </div>
                 </section>
                 <hr className="w-11/12 m-auto bg-gray-200" />
@@ -66,24 +67,46 @@ function SideBar() {
                     <nav className="menu rounded-md">
                         <section className="menu-section px-4">
                             <div className='font-bold'>Mes Notes</div>
-                            {notes.notes &&
+                            {/* {notes.notes &&
                                 notes.notes.map((note) => (
                                     <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
                                         - {note.title}
                                     </div>
                                 ))}
-                            {notes?.notes && notes?.notes?.length === 0 && <div className='text-center'>Aucune note</div>}
+                            {notes?.notes && notes?.notes?.length === 0 && <div className='text-center'>Aucune note</div>} */}
+                            {/* only map on note where note.authorId == auth.user.id */}
+                            {notes.notes &&
+                                notes.notes.map((note) => {
+                                    if (note.authorId === auth.user.id) {
+                                        return (
+                                            <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
+                                                - {note.title}
+                                            </div>
+
+                                        )
+                                    }
+                                }
+                                )}
+
                         </section>
                     </nav>
                     <nav className="menu rounded-md pt-4">
                         <section className="menu-section px-4">
                             <div className='font-bold'>Notes Partagées</div>
+                            {/* Only map on note where note.authorId !== auth.user.id */}
                             {notes.notes &&
-                                notes.notes.map((note) => (
-                                    <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
-                                        - {note.title}
-                                    </div>
-                                ))}
+                                notes.notes.map((note) => {
+                                    if (note.authorId !== auth.user.id) {
+                                        return (
+                                            <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
+                                                - {note.title}
+                                            </div>
+                                        )
+                                    }
+                                }
+                                )}
+                            {notes?.notes && notes?.notes?.length === 0 && <div className='text-center'>Aucune note</div>}
+
                         </section>
                     </nav>
                 </section>

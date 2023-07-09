@@ -4,9 +4,25 @@ const prisma = new PrismaClient();
 
 export const getNotes = async (req, res) => {
   const userId = req.userId;
+
   const notes = await prisma.post.findMany({
+    // where: {
+    //   authorId: userId,
+    // },
+    // where authorId = userId or demandes.status = 'accepted'
     where: {
-      authorId: userId,
+      OR: [
+        {
+          authorId: userId,
+        },
+        {
+          demandes: {
+            some: {
+              status: "accepted",
+            },
+          },
+        },
+      ],
     },
     orderBy: {
       id: "asc",
@@ -25,6 +41,7 @@ export const getNotes = async (req, res) => {
       },
     },
   });
+  console.log(notes);
 
   return notes;
 };
@@ -49,11 +66,23 @@ export const updateNote = async (req, res) => {
     data: {
       content,
     },
+    include: {
+      demandes: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   return note;
 };
-
 
 export const deleteNote = async (req, res) => {
   const note = await prisma.post.delete({
