@@ -24,8 +24,11 @@ io.on("connection", (socket) => {
     console.log(`A user joined room ${room}`);
     socket.join(room);
     socket.emit("connected", `You are connected to room ${room}`);
-    socket.on("editing", (data) => {
-      socket.broadcast.to(room).emit("editing", data);
+    socket.on("sendEditing", (data) => {
+      console.log(room);
+      if (socket.rooms.has(room)) {
+        socket.broadcast.to(room).emit("editing", data);
+      }
     });
 
     socket.on("disconnect", () => {
@@ -35,6 +38,11 @@ io.on("connection", (socket) => {
       socket.leave(room);
     });
   });
+  socket.on('unsubscribe',function(room){  
+    console.log('leaving room', room);
+    socket.leave(room);
+  });
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   }

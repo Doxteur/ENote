@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import AuthReducer from '../features/Auth/AuthReducer';
 import NotesReducer from '../features/Notes/NotesReducer';
+import SocketReducer from '../features/Socket/SocketReducer';
+
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
@@ -16,6 +19,7 @@ const persistConfig = {
 const rootReducer = persistCombineReducers(persistConfig, {
 	auth: AuthReducer,
 	notes: NotesReducer,
+	socket: SocketReducer
 });
 
 

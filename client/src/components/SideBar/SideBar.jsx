@@ -9,25 +9,34 @@ import { BiEdit } from "react-icons/bi";
 import { BsFilterLeft, BsFillDoorOpenFill } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
 import ModalJoinNote from '../Modal/ModalJoinNote';
+import { socket } from '../../utils/socket';
 
 function SideBar() {
     const auth = useSelector((state) => state.auth);
     const notes = useSelector((state) => state.notes);
+    const socketReducer = useSelector((state) => state.socket);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
 
     const disconnect = () => {
         localStorage.removeItem("token");
         dispatch(logout());
-
     };
+
+    if(!auth.user){
+        disconnect();
+    }
+
     const handleEdit = (e) => {
+        if (socketReducer.room) {
+            console.log("unsub", socketReducer.room)
+            socket.emit("unsubscribe", socketReducer.room);
+        }
         navigate(`/note/${e}`);
     };
 
-    const showModalLink = () => {
-    }
+
 
 
     return (
@@ -55,9 +64,7 @@ function SideBar() {
 
                         <label htmlFor="modal-2" className='-mr-2'>
                             <AiOutlineLink className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer hover:text-green-400"
-                                onClick={
-                                    (e) => showModalLink()
-                                }
+                          
                             />
                         </label>
                     </div>
@@ -76,8 +83,9 @@ function SideBar() {
                             {notes?.notes && notes?.notes?.length === 0 && <div className='text-center'>Aucune note</div>} */}
                             {/* only map on note where note.authorId == auth.user.id */}
                             {notes.notes &&
-                                notes.notes.map((note) => {
-                                    if (note.authorId === auth.user.id) {
+                                notes?.notes?.map((note) => {
+                                    console.log("note", note)
+                                    if (note?.authorId === auth.user.id) {
                                         return (
                                             <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
                                                 - {note.title}
@@ -96,7 +104,7 @@ function SideBar() {
                             {/* Only map on note where note.authorId !== auth.user.id */}
                             {notes.notes &&
                                 notes.notes.map((note) => {
-                                    if (note.authorId !== auth.user.id) {
+                                    if (note?.authorId !== auth.user.id) {
                                         return (
                                             <div key={note.id} className="menu-item flex-col items-start" onClick={(e) => handleEdit(note.id)}>
                                                 - {note.title}

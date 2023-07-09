@@ -66,7 +66,7 @@ export default function EditorWiz({ note, setNote }) {
 
 
 		if (text !== previousText) {
-			socket.emit("editing", text);
+			socket.emit("sendEditing", text);
 			clearTimeout(typingTimeoutRef.current);
 			typingTimeoutRef.current = setTimeout(() => {
 				dispatch(

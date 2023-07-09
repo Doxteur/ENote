@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EditorWiz from "./EditorWiz";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useLocation } from "react-router-dom";
 import { socket } from "../../../utils/socket";
 import SaveIcon from "./SaveIcon";
+import { joinRoom } from "../../../features/Socket/SocketReducer";
 
 function Editor() {
 	const { id } = useParams();
 	const notes = useSelector((state) => state.notes);
 	const [note, setNote] = useState(null);
 	const location = useLocation();
-
+	const socketReducer = useSelector((state) => state.socket);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (!notes.notes) return;
@@ -23,14 +25,14 @@ function Editor() {
 	}, [notes.notes]);
 	
 
-
 	useEffect(() => {
 		if (!notes.notes) return;
 		setNote(notes.notes.find((note) => note.id === parseInt(id)));
 	}, [location]);
-
+	
 	useEffect(() => {
 		socket.emit("join", id);
+		dispatch(joinRoom(id));
 	}, [id]);
 
 	useEffect(() => {
