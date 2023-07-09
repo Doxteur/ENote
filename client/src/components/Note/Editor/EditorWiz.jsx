@@ -9,7 +9,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../features/Auth/AuthReducer";
 import SideBar from "../../SideBar/SideBar";
@@ -32,22 +32,29 @@ export default function EditorWiz({ note, setNote }) {
 	const [modalManageInvites, setModalManageInvites] = useState(false);
 
 	useEffect(() => {
+		if(note?.content === previousText) return;
+
 		const blocksFromHTML = convertFromHTML(note?.content);
 		const state = ContentState.createFromBlockArray(
 			blocksFromHTML.contentBlocks,
 			blocksFromHTML.entityMap,
 		);
+
+		const selectionState = editorState.getSelection();
+		setPreviousSelection(selectionState);
 		setEditorState(EditorState.createWithContent(state));
 		setPreviousText(note?.content);
-	}, [note]);
+	}, [note	]);
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
+			if(note?.content === previousText) return;
 			const blocksFromHTML = convertFromHTML(data);
 			const state = ContentState.createFromBlockArray(
 				blocksFromHTML.contentBlocks,
 				blocksFromHTML.entityMap,
 			);
+
 			setEditorState(EditorState.createWithContent(state));
 			setPreviousText(data);
 		});
