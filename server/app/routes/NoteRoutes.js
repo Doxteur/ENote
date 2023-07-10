@@ -1,13 +1,22 @@
 import { Router as router } from "express";
 import { PrismaClient } from "@prisma/client";
-import { createNote, deleteNote, getNotes, updateNote } from "../controllers/NoteControllers.js";
+import {
+  createNote,
+  deleteNote,
+  getNotes,
+  updateNote,
+} from "../controllers/NoteControllers.js";
 
 const prisma = new PrismaClient();
 
 export default router()
   .get("/", async (req, res) => {
-    const notes = await getNotes(req, res);
-    res.json(notes);
+    try {
+      const notes = await getNotes(req, res);
+      res.json(notes);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   })
   .post("/", async (req, res) => {
     const note = await createNote(req, res);

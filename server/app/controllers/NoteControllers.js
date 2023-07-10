@@ -54,6 +54,31 @@ export const createNote = async (req, res) => {
 
 export const updateNote = async (req, res) => {
   const { content } = req.body;
+
+  // is allowed need to check on post and demandes
+  const isAllowed = await prisma.post.findFirst({
+    where: {
+      id: parseInt(req.params.id),
+      OR: [
+        {
+          authorId: req.userId,
+        },
+        {
+          demandes: {
+            some: {
+              status: "accepted",
+              userId: req.userId,
+            },
+          },
+        },
+      ],
+    },
+  });
+
+  if(!isAllowed) {
+    throw new Error("You are not allowed to modify this note");
+  }
+
   const note = await prisma.post.update({
     where: {
       id: parseInt(req.params.id),
