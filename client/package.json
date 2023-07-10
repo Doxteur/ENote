@@ -1,9 +1,7 @@
 {
 	"name": "electron-react-tailwind-template",
 	"author": {
-		"email": "demirci.baris38@gmail.com",
-		"name": "Barış DEMİRCİ",
-		"url": "https://338.rocks"
+		"name": "Jimmy Enzo"
 	},
 	"description": "Electron app template with React and Tailwind CSS",
 	"repository": {
