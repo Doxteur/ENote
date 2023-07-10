@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 function ModalShowLink({ note }) {
-	const dispatch = useDispatch();
-	const notes = useSelector((state) => state.notes);
-	const auth = useSelector((state) => state.auth);
     const [isCopied, setIsCopied] = useState(false);
 
 	useEffect(() => {
