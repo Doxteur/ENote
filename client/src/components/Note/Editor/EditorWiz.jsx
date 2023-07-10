@@ -51,7 +51,7 @@ export default function EditorWiz({ note, setNote }) {
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
-			if (note?.content === previousText) return;
+			if(note?.content === previousText) return;
 			const blocksFromHTML = convertFromHTML(data);
 			const state = ContentState.createFromBlockArray(
 				blocksFromHTML.contentBlocks,
@@ -153,10 +153,12 @@ export default function EditorWiz({ note, setNote }) {
 										className="dropdown-item text-sm"
 										htmlFor="modal-2"
 									>
+										{note && note.demandes && note.demandes.length > 0 &&  
 										<div className="flex align-middle items-center">
 											<GoMailRead className="mr-2" />
 											Gestion Invites
 										</div>
+										}
 									</label>
 
 									<label

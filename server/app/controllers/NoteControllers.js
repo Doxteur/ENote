@@ -42,11 +42,11 @@ export const getNotes = async (req, res) => {
 };
 
 export const createNote = async (req, res) => {
-  const { title, content } = req.body;
+  const { title} = req.body;
   const note = await prisma.post.create({
     data: {
       title,
-      content,
+      authorId: req.userId,
     },
   });
   return note;

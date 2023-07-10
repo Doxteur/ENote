@@ -3,6 +3,9 @@ import { REACT_APP_API_URL } from "../../utils/config";
 
 export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
   try {
+	console.log("Hemp",`${REACT_APP_API_URL}/auth/login`);
+
+
 		const response = await fetch(`${REACT_APP_API_URL}/auth/login`, {
 			method: "POST",
 			headers: {
@@ -10,6 +13,8 @@ export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
 			},
 			body: JSON.stringify(data),
 		});
+
+		console.log("response",response);
 
 		const responseData = await response.json();
 		if (!response.ok) {
