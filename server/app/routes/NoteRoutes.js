@@ -7,8 +7,6 @@ import {
   updateNote,
 } from "../controllers/NoteControllers.js";
 
-const prisma = new PrismaClient();
-
 export default router()
   .get("/", async (req, res) => {
     try {
