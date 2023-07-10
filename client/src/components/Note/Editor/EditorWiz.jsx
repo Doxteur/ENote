@@ -44,7 +44,7 @@ export default function EditorWiz({ note, setNote }) {
 		setPreviousSelection(selectionState);
 		setEditorState(EditorState.createWithContent(state));
 		setPreviousText(note?.content);
-	}, [note	]);
+	}, [note]);
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
