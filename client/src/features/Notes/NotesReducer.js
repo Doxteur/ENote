@@ -52,7 +52,6 @@ export const updateNote = createAsyncThunk(
 	},
 );
 
-
 export const createNote = createAsyncThunk(
 	"notes/create",
 	async (data, thunkAPI) => {
@@ -77,11 +76,35 @@ export const createNote = createAsyncThunk(
 	},
 );
 
+export const deleteNote = createAsyncThunk(
+	"notes/delete",
+	async (data, thunkAPI) => {
+		try {
+			const response = await fetch(
+				`${REACT_APP_API_URL}/notes/${data.id}`,
+				{
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${data.token}`,
+					},
+				},
+			);
+			const responseData = await response.json();
+			if (!response.ok) {
+				return thunkAPI.rejectWithValue(responseData);
+			}
+			return responseData;
+		} catch (error) {
+			console.log("error", error);
+			return thunkAPI.rejectWithValue(error.response.data);
+		}
+	},
+);
 
 export const updateStatus = createAsyncThunk(
 	"notes/updateStatus",
 	async (data, thunkAPI) => {
-		
 		try {
 			const response = await fetch(
 				`${REACT_APP_API_URL}/demandes/${data.demandeId}`,
@@ -210,8 +233,7 @@ const NotesSlice = createSlice({
 		},
 		[updateStatus.pending]: (state, action) => {
 			state.isLoading = true;
-		}
-		,
+		},
 		[updateStatus.fulfilled]: (state, action) => {
 			state.isLoading = false;
 			// find the note with action.payload.postId then find the demande with action.payload.id and update it
@@ -274,9 +296,31 @@ const NotesSlice = createSlice({
 			console.log("action", action);
 			state.isLoading = false;
 			state.error = action?.payload?.error || action?.payload?.message;
-		}
+		},
+		[deleteNote.pending]: (state, action) => {
+			state.isLoading = true;
+		},
+		[deleteNote.fulfilled]: (state, action) => {
+			console.log("action", action);
+			state.isLoading = false;
+			state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+			state.error = null;
+			toast.success("🦄 Votre note a été supprimée !", {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+		},
+		[deleteNote.rejected]: (state, action) => {
+			state.isLoading = false;
+			state.error = action.payload.error || action.payload.message;
+		},
 	},
-
 });
 
 export const { setNotes } = NotesSlice.actions;

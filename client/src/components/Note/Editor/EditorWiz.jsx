@@ -20,6 +20,7 @@ import { socket } from "../../../utils/socket";
 import ModalShowLink from "../../Modal/ModalShowLink";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { GoMailRead } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 export default function EditorWiz({ note, setNote }) {
 	const [cursorColor, setCursorColor] = useState("#000000"); // Default cursor color
@@ -35,6 +36,7 @@ export default function EditorWiz({ note, setNote }) {
 	const [modalManageInvites, setModalManageInvites] = useState(false);
 
 	useEffect(() => {
+
 		if (note?.content === previousText) return;
 
 		const blocksFromHTML = convertFromHTML(note?.content);
