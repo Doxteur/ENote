@@ -55,7 +55,10 @@ function SideBar() {
                 <section className="p-4  flex items-center justify-center">
 
                     <div className='flex space-x-4'>
+                    <label htmlFor="modal-3" className='-mr-2'>
+
                         <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer" />
+                        </label>
                         <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
                         <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
 

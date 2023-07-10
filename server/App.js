@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 //
 const server = createServer(app);
 const io = new Server(server, {
@@ -51,6 +52,9 @@ io.on("connection", (socket) => {
 
 app.use("/api", index);
 
-server.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port,"10.35.0.70", () => {
+  console.log(`Server is running on port ${port}.`);
+});
+
 
 export default io;
