@@ -48,6 +48,7 @@ export default function EditorWiz({ note, setNote }) {
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
+			console.log("Jedite", data);
 			if(note?.content === previousText) return;
 			const blocksFromHTML = convertFromHTML(data);
 			const state = ContentState.createFromBlockArray(
@@ -100,7 +101,7 @@ export default function EditorWiz({ note, setNote }) {
 	return (
 		<div className="flex">
 			<SideBar />
-			{note &&
+			{note && note.demandes && note.demandes.length > 0 &&
 				<ModalInvitesManages modalManageInvites={modalManageInvites} setModalManageInvites={setModalManageInvites} note={note} setNote={setNote} />
 			}
 
@@ -120,7 +121,10 @@ export default function EditorWiz({ note, setNote }) {
 									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
 								</label>
 								<div className="dropdown-menu">
+									{note && note.demandes && note.demandes.length > 0 && 
 									<label className="dropdown-item text-sm" htmlFor="modal-1">Gestion Invites</label>
+									}
+									
 								</div>
 							</div>
 

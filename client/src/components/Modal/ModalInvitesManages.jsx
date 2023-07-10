@@ -25,8 +25,6 @@ function ModalInvitesManages({ note, setNote }) {
 
     }
 
-
-
     return (
         <div>
             <input className="modal-state" id="modal-1" type="checkbox" />
@@ -44,7 +42,7 @@ function ModalInvitesManages({ note, setNote }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {note?.demandes.map((demande) => (
+                            {note && note?.demandes?.length > 0 && note?.demandes.map((demande) => (
                                 <tr key={demande.id} >
                                     <td className="mx-2"> {demande.user.name}</td>
                                     <td className='mx-2'>{demande.user.email}</td>

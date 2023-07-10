@@ -9,6 +9,7 @@ import { BiEdit } from "react-icons/bi";
 import { BsFilterLeft, BsFillDoorOpenFill } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
 import ModalJoinNote from '../Modal/ModalJoinNote';
+import ModalAddNote from '../Modal/ModalAddNote';
 import { socket } from '../../utils/socket';
 
 function SideBar() {
@@ -24,7 +25,7 @@ function SideBar() {
         dispatch(logout());
     };
 
-    if(!auth.user){
+    if (!auth.user) {
         disconnect();
     }
 
@@ -42,6 +43,7 @@ function SideBar() {
     return (
         <>
             <ModalJoinNote />
+            <ModalAddNote />
             <aside className="sidebar-sticky sidebar">
                 <section className="sidebar-title items-center p-4">
                     <svg fill="none" height="42" viewBox="0 0 32 32" width="42" xmlns="http://www.w3.org/2000/svg">
@@ -58,13 +60,18 @@ function SideBar() {
                 <section className="p-4  flex items-center justify-center">
 
                     <div className='flex space-x-4'>
-                        <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer" />
+                        <label htmlFor="modal-6" className='-mr-2'>
+                            <AiFillFileAdd className="rounded text-2xl hover:bg-gray-400 cursor-pointer" />
+
+
+                        </label>
+
                         <BiEdit className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
                         <AiOutlineStar className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer" />
 
                         <label htmlFor="modal-2" className='-mr-2'>
                             <AiOutlineLink className="rounded text-2xl mr-2 hover:bg-gray-400 cursor-pointer hover:text-green-400"
-                          
+
                             />
                         </label>
                     </div>
