@@ -1,12 +1,12 @@
 {
-	"name": "electron-react-tailwind-template",
+	"name": "E-Note",
 	"author": {
 		"name": "Jimmy Enzo"
 	},
-	"description": "Electron app template with React and Tailwind CSS",
+	"description": "Enote Application de note",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/barbarbar338/electron-react-tailwind-template"
+		"url": "https://github.com/Doxteur/ENote"
 	},
 	"license": "GPL-3.0",
 	"version": "1.0.1",
@@ -67,8 +67,8 @@
 		"prebuild": "rimraf build && rimraf dist",
 		"react:build": "react-scripts build",
 		"react:dev": "cross-env BROWSER=none react-scripts start",
-		"electron:build": "electron-builder -wl --publish never",
-		"electron:deploy": "electron-builder build --linux --publish always",
+		"electron:build": "electron-builder build --win --publish never",
+		"electron:deploy": "electron-builder build --win --publish always",
 		"electron:dev": "electron .",
 		"build": "npm run react:build && npm run electron:build",
 		"deploy": "npm run react:build && npm run electron:deploy",

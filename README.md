@@ -1,8 +1,11 @@
 # E-Note
 ## Description
 E-note est une application de prise de note à plusieurs en temps réel. Elle permet de créer, modifier et supprimer des notes.
-L'application est développée en REACT pour le FRONT et NODE.JS pour le back, et pour la base de données j'utilise POSTGRESQL.
+L'application est développée en REACT pour le FRONT et NODE.JS pour le back, et pour la base de données j'utilise 
+POSTGRESQL.
 
+## Lancement de l'éxécutable
+Pour lancer l'application, il faut télécharger le fichier .exe se trouve dans le dossier client/dist/.
 ## Installation
 L'application est composée de 2 parties : le front et le back. 
 Pour installer l'application, il faut suivre les étapes suivantes :
