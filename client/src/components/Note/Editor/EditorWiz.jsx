@@ -153,7 +153,7 @@ export default function EditorWiz({ note, setNote }) {
 								<div className="dropdown-menu">
 									<label
 										className="dropdown-item text-sm"
-										htmlFor="modal-2"
+										htmlFor="modal-10"
 									>
 										{note && note.demandes && note.demandes.length > 0 &&  
 										<div className="flex align-middle items-center">

@@ -27,11 +27,11 @@ function ModalInvitesManages({ note, setNote }) {
 
     return (
         <div>
-            <input className="modal-state" id="modal-1" type="checkbox" />
+            <input className="modal-state" id="modal-10" type="checkbox" />
             <div className="modal">
-                <label className="modal-overlay" htmlFor="modal-1"></label>
+                <label className="modal-overlay" htmlFor="modal-10"></label>
                 <div className="modal-content flex flex-col gap-5">
-                    <label htmlFor="modal-1" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+                    <label htmlFor="modal-10" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
                     <h1 className="text-2xl font-bold">Gestionnaires des Invitations</h1>
                     <table className="table">
                         <thead>
