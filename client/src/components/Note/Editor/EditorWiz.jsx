@@ -23,7 +23,8 @@ import { GoMailRead } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
 export default function EditorWiz({ note, setNote }) {
-	const [cursorColor, setCursorColor] = useState("#000000"); // Default cursor color
+	// red
+	const [cursorColor, setCursorColor] = useState("#ff0000");
 
 	const dispatch = useDispatch();
 	const [editorState, setEditorState] = useState(() =>
@@ -53,6 +54,7 @@ export default function EditorWiz({ note, setNote }) {
 
 	useEffect(() => {
 		socket.on("editing", (data) => {
+			console.log("State",editorState.getCurrentContent().getPlainText("\u0001"));
 			if(note?.content === previousText) return;
 			const blocksFromHTML = convertFromHTML(data);
 			const state = ContentState.createFromBlockArray(
