@@ -111,5 +111,6 @@ export const deleteNote = async (req, res) => {
     },
   });
 
+  console.log(note);
   return note;
 };
