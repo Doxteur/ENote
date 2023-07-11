@@ -44,7 +44,7 @@ function NoteListes() {
 					<div className="flex flex-row">
 						<SideBar />
 						<div className="flex flex-col w-full justify-center items-center">
-							<h1 className="text-4xl font-bold mb-8">Aucun fichier choisie</h1>
+							<h1 className="text-4xl font-bold mb-8">Aucun fichier choisi</h1>
 							<div className="flex flex-col gap-4">
 								<label htmlFor="modal-6" className='-mr-2'>
 									<div className="link link-secondary link-underline-hover" href="/">Créer un nouveau fichier</div>

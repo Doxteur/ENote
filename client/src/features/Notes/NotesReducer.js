@@ -215,7 +215,7 @@ const NotesSlice = createSlice({
 				return note;
 			});
 			state.error = null;
-			toast.success("🦄 Votre notre a été mis à jour !", {
+			toast.success("🦄 Votre note a été mis à jour !", {
 				position: "bottom-right",
 				autoClose: 5000,
 				hideProgressBar: false,
