@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 
 export default router()
   .post("/login", async (req, res) => {
-    console.log("je suis la",req);
 
     try {
       if (!req.body?.email || !req.body?.password) {
