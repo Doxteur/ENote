@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
 
 app.use("/api", index);
 
-server.listen(port,"10.35.0.70", () => {
+server.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
 
