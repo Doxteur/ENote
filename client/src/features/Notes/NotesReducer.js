@@ -293,7 +293,6 @@ const NotesSlice = createSlice({
 			});
 		},
 		[createDemande.rejected]: (state, action) => {
-			console.log("action", action);
 			state.isLoading = false;
 			state.error = action?.payload?.error || action?.payload?.message;
 		},
@@ -301,7 +300,6 @@ const NotesSlice = createSlice({
 			state.isLoading = true;
 		},
 		[deleteNote.fulfilled]: (state, action) => {
-			console.log("action", action);
 			state.isLoading = false;
 			state.notes = state.notes.filter((note) => note.id !== action.payload.id);
 			state.error = null;

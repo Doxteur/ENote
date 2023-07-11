@@ -3,10 +3,6 @@ import { useState, useEffect } from "react";
 function ModalShowLink({ note }) {
     const [isCopied, setIsCopied] = useState(false);
 
-	useEffect(() => {
-		console.log(note);
-	}, [note]);
-
 	return (
 		<div>
 			<input class="modal-state" id="modal-4" type="checkbox" />

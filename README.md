@@ -1,65 +1,74 @@
+# E-Note
+## Description
+E-note est une application de prise de note à plusieurs en temps réel. Elle permet de créer, modifier et supprimer des notes.
+L'application est développée en REACT pour le FRONT et NODE.JS pour le back, et pour la base de données j'utilise POSTGRESQL.
 
-# Cahier des charges
+## Installation
+L'application est composée de 2 parties : le front et le back. 
+Pour installer l'application, il faut suivre les étapes suivantes :
 
-## Contexte
+### Back
+La partie Back se trouve dans le dossier server.
 
-### Concepts
+1. Se rendre dans le dossier server
+```bash
+cd server
+```
+2. Installer les dépendances
+```bash
+yarn
+```
+3. Dupliquer le fichier .env.example et le renommer en .env
 
-ENote est une application web de prise de note en ligne permettant la collaboration en temps réel avec d'autres utilisateurs.
+Si vous avez docker d'installé sur votre machine, vous pouvez lancer la base de données avec la commande suivante :
+```bash
+docker compose up -d
+```
+Sinon vous devez faire tourner une base de données postgresql sur le port 5432, il faudra changer les informations de connexion dans le fichier .env
 
-## Objectifs
+1. Lancer la migration de la base de données
+```bash
+yarn migrate
+```
 
-ENote a été créé pour simplifier la prise de notes et la collaboration en temps réel, en permettant aux utilisateurs d'écrire ensemble sur la même note en temps réel, peu importe leur emplacement géographique.
+1. Seeder la base
+```bash
+yarn seed
+```
 
-**Pour qui ?** : Enote peut être utilisé par tout le monde, que ce soit pour la prise de notes personnelle ou pour la collaboration avec des amis ou des collègues.
+1. Lancer le serveur
+```bash
+yarn dev
+```
 
-**Pour quoi ?** : Simplifier la prise de notes et la collaboration en temps réel.
+### Front
+La partie Front se trouve dans le dossier client, ouvrez un nouveau terminal.
 
-**Quels bénéfices ?** : Les utilisateurs de Enote peuvent bénéficier de la facilité d'utilisation, de la sécurité des données, ainsi que de la collaboration en temps réel avec d'autres utilisateurs.
+1. Se rendre dans le dossier client
+```bash
+cd client
+```
 
-### Acteurs (rôles)
+1. Installer les dépendances
+```bash
+yarn
+```
 
-- Utilisateurs de ENote
+1. Lancer le serveur
+```bash
+yarn dev
+```
 
-### Authentification
+Dans le cas ou l'application ne se lance pas, il faut lancer le serveur electron et le serveur react séparément.
+Lancer ces commandes:
+```bash
+yarn electron:dev
+```
+et 
+```bash
+yarn react:dev
+```
 
-- Crée une note
-- Modifié une note
-- Collaboration avec des amis ou des collègues
 
-## Périmètre du système et cas d'utilisation
 
-ENote est une application web permettant à plusieurs utilisateurs d'écrire ensemble sur la même note en temps réel. Le système comporte les fonctionnalités suivantes :
 
-- Prise de notes en temps réel avec plusieurs utilisateurs
-- Système d'authentification pour la sécurité des données
-- Système d'amis pour faciliter la collaboration
-- Interface utilisateur conviviale et intuitive
-- Développé en utilisant des technologies modernes et performantes
-
-### Règles métiers (ou règles de gestion)
-
-Aucune règle métier spécifique.
-
-### Exigences fonctionnelles
-
-Le système doit permettre à l'utilisateur de :
-
-- rentrer des notes et les sauvegarder dans une API
-- s'authentifier et ajouter des amis
-- inviter un ami pour pouvoir modifier la note
-- bénéficier de l'aide d'une IA (ChatGPT, etc.) pour faciliter la création de la note
-
-### Exigences non fonctionnelles
-
-Le système doit respecter les critères de qualité, de fiabilité et de sécurité.
-
-### Contraintes
-
-Le système sera développé en React.js/Redux/Electron pour le Front et Laravel et MySQL pour le Back.
-
-### Prestations attendues
-
-- Installation
-- Documentation technique
-- Planning (non défini)
