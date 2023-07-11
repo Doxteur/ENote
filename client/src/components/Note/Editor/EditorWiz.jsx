@@ -155,7 +155,7 @@ export default function EditorWiz({ note, setNote }) {
 										className="dropdown-item text-sm"
 										htmlFor="modal-10"
 									>
-										{note && note.demandes && note.demandes.length > 0 &&  
+										{note &&
 										<div className="flex align-middle items-center">
 											<GoMailRead className="mr-2" />
 											Gestion Invites

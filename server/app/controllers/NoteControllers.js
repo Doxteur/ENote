@@ -49,6 +49,9 @@ export const createNote = async (req, res) => {
       authorId: req.userId,
     },
   });
+  // add demande[] to note
+  note.demandes = [];
+  console.log(note);
   return note;
 };
 

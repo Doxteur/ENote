@@ -42,7 +42,8 @@ function ModalInvitesManages({ note, setNote }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {note && note?.demandes?.length > 0 && note?.demandes.map((demande) => (
+                            {console.log("Ma Note =====",note)}
+                        {note && note.demandes && note.demandes.length > 0 && note.demandes.map((demande) => (
                                 <tr key={demande.id} >
                                     <td className="mx-2"> {demande.user.name}</td>
                                     <td className='mx-2'>{demande.user.email}</td>
