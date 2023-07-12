@@ -108,13 +108,19 @@ export const updateNote = async (req, res) => {
 };
 
 export const deleteNote = async (req, res) => {
+
+  // delete all demandes
+  await prisma.demande.deleteMany({
+    where: {
+      postId: parseInt(req.params.id),
+    },
+  });
+
   const note = await prisma.post.delete({
     where: {
       id: parseInt(req.params.id),
     },
-    include: {
-      demandes: true,
-    },
+ 
   });
 
   return note;
