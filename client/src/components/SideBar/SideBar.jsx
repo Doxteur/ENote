@@ -109,7 +109,7 @@ function SideBar() {
 					</nav>
 					<nav className="menu rounded-md pt-4">
 						<section className="menu-section px-4">
-							<div className="font-bold">Notes Partagées</div>
+							<div className="font-bold">Mes Notes Rejointes</div>
 							{/* Only map on note where note.authorId !== auth.user.id */}
 							{notes.notes &&
 								notes.notes.map((note) => {
@@ -127,7 +127,7 @@ function SideBar() {
 										);
 									}
 								})}
-							{notes?.notes && notes?.notes?.length === 0 && (
+							{notes?.notes && notes?.notes?.length <= 0 && (
 								<div className="text-center">Aucune note</div>
 							)}
 						</section>

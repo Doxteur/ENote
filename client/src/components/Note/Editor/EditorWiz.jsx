@@ -149,9 +149,12 @@ export default function EditorWiz({ note, setNote }) {
 						</div>
 						<div className="absolute right-5 p-1 pb-0.5 rounded-md">
 							<div className="dropdown">
+								{// if user.id != note.user_id
+								note.authorId === auth.user.id &&
 								<label tabIndex="0">
 									<BsFillGearFill className="hover:text-gray-600 cursor-pointer w-6 h-6 hover:animate-spin" />
 								</label>
+								}
 								<div className="dropdown-menu">
 									<label
 										className="dropdown-item text-sm"
@@ -197,6 +200,12 @@ export default function EditorWiz({ note, setNote }) {
 							"blockType",
 							"fontSize",
 							"fontFamily",
+							//text color
+							"list",	
+							"textAlign",
+							"link",
+							"history",
+
 						],
 					}}
 					value={note.content}

@@ -65,7 +65,7 @@
 	"homepage": "./",
 	"main": "public/electron.js",
 	"scripts": {
-		"dev": "concurrently \"--host=192.168.0.37 npm run react:dev\" \"npm run electron:wait\"",
+		"dev": "concurrently \"npm run react:dev\" \"npm run electron:wait\"",
 		"electron:wait": "npm run electron:dev",
 		"prebuild": "rimraf build && rimraf dist",
 		"react:build": "react-scripts build",
