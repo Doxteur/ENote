@@ -112,6 +112,9 @@ export const deleteNote = async (req, res) => {
     where: {
       id: parseInt(req.params.id),
     },
+    include: {
+      demandes: true,
+    },
   });
 
   return note;
