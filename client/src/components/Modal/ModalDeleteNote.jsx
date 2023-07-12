@@ -38,6 +38,7 @@ function ModalDeleteNote() {
 					<button
 						className="btn btn-primary"
 						onClick={() => {
+
                             if(!id) return
 							dispatch(
 								deleteNote({
@@ -45,6 +46,8 @@ function ModalDeleteNote() {
 									id: id,
 								}),
 							);
+							document.getElementById('modal-7').checked = false
+
 						}}
 					>
 						Supprimer

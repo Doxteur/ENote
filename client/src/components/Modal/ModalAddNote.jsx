@@ -31,6 +31,7 @@ function ModalAddNote(){
                     <button className='btn btn-primary'
                         onClick={() => {
                             handleAddNote()
+                            document.getElementById('modal-6').checked = false
                         }}
                     >Créer</button>
                     {status === true && <p className='text-green-500'>Note créée</p>}

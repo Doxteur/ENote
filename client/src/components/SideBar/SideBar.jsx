@@ -13,6 +13,8 @@ import ModalAddNote from "../Modal/ModalAddNote";
 import { socket } from "../../utils/socket";
 import { BsTrashFill } from "react-icons/bs";
 import ModalDeleteNote from "../Modal/ModalDeleteNote";
+import { BiRefresh } from "react-icons/bi";
+import { getNotes } from "../../features/Notes/NotesReducer";
 
 function SideBar() {
 	const auth = useSelector((state) => state.auth);
@@ -38,6 +40,11 @@ function SideBar() {
 		}
 		navigate(`/note/${e}`);
 	};
+
+	const refresh = () => {
+		dispatch(getNotes());
+	}
+
 
 	return (
 		<>
@@ -81,6 +88,9 @@ function SideBar() {
 						<label htmlFor="modal-7" onClick={(e) => navigate("/notes")}>
 							<BsTrashFill className="rounded text-2xl hover:bg-gray-400 cursor-pointer hover:text-red-400" />
 						</label>
+						<BiRefresh className="rounded text-2xl hover:bg-gray-400 cursor-pointer hover:text-yellow-400" 
+						onClick={(e) => refresh}
+						/>
 					</div>
 				</section>
 				<hr className="w-11/12 m-auto bg-gray-200" />
@@ -141,6 +151,7 @@ function SideBar() {
 							to={"/"}
 						>
 							<BsFillDoorOpenFill />
+							
 						</Link>
 					</div>
 				</section>
